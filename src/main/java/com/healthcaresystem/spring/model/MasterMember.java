@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name="mastermember")
 public class MasterMember {
 
-	
+	@Id
 	@Column(name="File_Name")
 	private String File_Name ;
 	
