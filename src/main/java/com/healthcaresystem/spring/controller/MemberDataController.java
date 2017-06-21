@@ -86,9 +86,7 @@ MemberDataDao memberdatadao;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
- 
-		
+ 		
 	}
- 
 }
 	
