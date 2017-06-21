@@ -10,24 +10,42 @@ import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtilites {
 	
-	private static SessionFactory factory;
-	private static ServiceRegistry reg;
+	private static SessionFactory sessionFactory;
+	private static ServiceRegistry serviceRegistry;
 	static{
 	try
 	{
-		Configuration config=new Configuration().configure();
+		
+		sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		/*Configuration config=new Configuration().configure();
 		reg=(ServiceRegistry) new ServiceRegistryBuilder().applySettings(config.getProperties());
 		factory=config.buildSessionFactory(reg);
-		System.out.println("session created");
+		System.out.println("session created");*/
 	}
 	catch(HibernateException e)
 	{
-		System.out.println("session created with error");
+		System.err.println("Error creating Session: " + e);
+		throw new ExceptionInInitializerError(e);
 	}
 }
 	
 	public static SessionFactory getSessionFactory()
 	{
-		return factory;
+		return sessionFactory;
+	}
+	
+	public static void closeFactory() {
+		if (sessionFactory != null) {
+			try {
+				sessionFactory.close();
+			} catch (HibernateException ignored) {
+				// log.error("Couldn't close SessionFactory", ignored);
+			}
+		}
 	}
 }
+
+
+
+
+
