@@ -19,6 +19,7 @@
 <bean id="mastermember" class="com.healthcaresystem.spring.model.MasterMember" />
 
 <bean id="memberdatadao" class="com.healthcaresystem.spring.dao.MemberDataDao" />
+<bean id="logindao" class="com.healthcaresystem.spring.dao.LoginDao" />
 
 
 

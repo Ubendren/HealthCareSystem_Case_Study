@@ -12,7 +12,7 @@ public class MemberLogin {
 
 	
 	
-	@Id @GeneratedValue
+	@Id
 	@Column(name="UserId", nullable = false)
 	private int UserId;
 	

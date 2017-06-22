@@ -1,5 +1,7 @@
 package com.healthcaresystem.spring.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,31 +45,34 @@ public class MemberData {
 		private String Cell_Phone_No;
 	
 	@Column(name="Date_of_Birth")
-		private String  Date_of_Birth;
+		private Date  Date_of_Birth;
 	
 	@Column(name="Gender")
-		private String Gender;
+		private char Gender;
 	
 	@Column(name="SSN")
 		private String SSN;
-
+	
+	/*@Column(name="Benefit_Coverage_Amount")
+		private int Benefit_Coverage_Amount ;*/
+	
 	@Column(name="Date_Policy_Applied")
-		private String Date_Policy_Applied; 
+		private Date Date_Policy_Applied; 
 
 	@Column(name="Student_Ind")
-	private String Student_Ind; 
+		private char Student_Ind; 
 	
 	@Column(name="Hazardous_Occupation")
-		private String Hazardous_Occupation ;
+		private char Hazardous_Occupation ;
 	
 	@Column(name="Heart_Disease_present")
-		private String Heart_Disease_present ;
+		private char Heart_Disease_present ;
 	
 	@Column(name="Involved_in_Aviation_Activities")
-		private String Involved_in_Aviation_Activities;
+		private char Involved_in_Aviation_Activities;
 	
 	@Column(name="Drinking_Smoking_Habits")
-		private String Drinking_Smoking_Habits;
+		private char Drinking_Smoking_Habits;
 	
 	@Column(name="Prem_Frequency")
 		private int Prem_Frequency;
@@ -75,28 +80,23 @@ public class MemberData {
 	@Column(name="Agent_Code")
 		private String  Agent_Code ;
 	
+	/*@Column(name="Policy_Eff_Date")
+		private String  Policy_Eff_Date ;*/
 	
-	@Column(name="Premium_Amount")
-		private int Premium_Amount;
+	/*@Column(name="Premium_Amount")
+		private int Premium_Amount;*/
 	
 	@Column(name="Coverage_Amount")
 		private double Coverage_Amount ;
 	
-	@Column(name="Deductable_Amount")
-	private double Deductable_Amount ;
+	@Column(name="Deductible_Amount")
+	private double Deductible_Amount ;
 	
-	public double getDeductable_Amount() {
-		return Deductable_Amount;
-	}
-	public void setDeductable_Amount(double deductable_Amount) {
-		Deductable_Amount = deductable_Amount;
-	}
-
-	@Column(name="Specialist_Visits_Allowed")
-		private int Specialist_Visits_Allowed;
+	/*@Column(name="Specialist_Visits_Allowed")
+		private int Specialist_Visits_Allowed;*/
 	
 	@Column(name="Process_Date")
-		private String Process_Date;
+		private Date Process_Date;
 	
 	@Column(name="Policy_Status")
 		private String Policy_Status;
@@ -161,16 +161,16 @@ public class MemberData {
 		public void setCell_Phone_No(String cell_Phone_No) {
 			Cell_Phone_No = cell_Phone_No;
 		}
-		public String getDate_of_Birth() {
+		public Date getDate_of_Birth() {
 			return Date_of_Birth;
 		}
-		public void setDate_of_Birth(String date_of_Birth) {
+		public void setDate_of_Birth(Date date_of_Birth) {
 			Date_of_Birth = date_of_Birth;
 		}
-		public String getGender() {
+		public char getGender() {
 			return Gender;
 		}
-		public void setGender(String gender) {
+		public void setGender(char gender) {
 			Gender = gender;
 		}
 		public String getSSN() {
@@ -179,41 +179,46 @@ public class MemberData {
 		public void setSSN(String sSN) {
 			SSN = sSN;
 		}
-		
-		public String getDate_Policy_Applied() {
+/*		public int getBenefit_Coverage_Amount() {
+			return Benefit_Coverage_Amount;
+		}
+		public void setBenefit_Coverage_Amount(int benefit_Coverage_Amount) {
+			Benefit_Coverage_Amount = benefit_Coverage_Amount;
+		}
+*/		public Date getDate_Policy_Applied() {
 			return Date_Policy_Applied;
 		}
-		public void setDate_Policy_Applied(String date_Policy_Applied) {
+		public void setDate_Policy_Applied(Date date_Policy_Applied) {
 			Date_Policy_Applied = date_Policy_Applied;
 		}
-		public String getStudent_Ind() {
+		public char getStudent_Ind() {
 			return Student_Ind;
 		}
-		public void setStudent_Ind(String student_Ind) {
+		public void setStudent_Ind(char student_Ind) {
 			Student_Ind = student_Ind;
 		}
-		public String getHazardous_Occupation() {
+		public char getHazardous_Occupation() {
 			return Hazardous_Occupation;
 		}
-		public void setHazardous_Occupation(String hazardous_Occupation) {
+		public void setHazardous_Occupation(char hazardous_Occupation) {
 			Hazardous_Occupation = hazardous_Occupation;
 		}
-		public String getHeart_Disease_present() {
+		public char getHeart_Disease_present() {
 			return Heart_Disease_present;
 		}
-		public void setHeart_Disease_present(String heart_Disease_present) {
+		public void setHeart_Disease_present(char heart_Disease_present) {
 			Heart_Disease_present = heart_Disease_present;
 		}
-		public String getInvolved_in_Aviation_Activities() {
+		public char getInvolved_in_Aviation_Activities() {
 			return Involved_in_Aviation_Activities;
 		}
-		public void setInvolved_in_Aviation_Activities(String involved_in_Aviation_Activities) {
+		public void setInvolved_in_Aviation_Activities(char involved_in_Aviation_Activities) {
 			Involved_in_Aviation_Activities = involved_in_Aviation_Activities;
 		}
-		public String getDrinking_Smoking_Habits() {
+		public char getDrinking_Smoking_Habits() {
 			return Drinking_Smoking_Habits;
 		}
-		public void setDrinking_Smoking_Habits(String drinking_Smoking_Habits) {
+		public void setDrinking_Smoking_Habits(char drinking_Smoking_Habits) {
 			Drinking_Smoking_Habits = drinking_Smoking_Habits;
 		}
 		public int getPrem_Frequency() {
@@ -228,12 +233,23 @@ public class MemberData {
 		public void setAgent_Code(String agent_Code) {
 			Agent_Code = agent_Code;
 		}
-		
-		public int getPremium_Amount() {
+		/*public String getPolicy_Eff_Date() {
+			return Policy_Eff_Date;
+		}
+		public void setPolicy_Eff_Date(String policy_Eff_Date) {
+			Policy_Eff_Date = policy_Eff_Date;
+		}*/
+		/*public int getPremium_Amount() {
 			return Premium_Amount;
 		}
 		public void setPremium_Amount(int premium_Amount) {
 			Premium_Amount = premium_Amount;
+		}*/
+		public double getDeductible_Amount() {
+			return Deductible_Amount;
+		}
+		public void setDeductible_Amount(double deductible_Amount) {
+			Deductible_Amount = deductible_Amount;
 		}
 		public double getCoverage_Amount() {
 			return Coverage_Amount;
@@ -241,16 +257,16 @@ public class MemberData {
 		public void setCoverage_Amount(double coverage_Amount) {
 			Coverage_Amount = coverage_Amount;
 		}
-		public int getSpecialist_Visits_Allowed() {
+		/*public int getSpecialist_Visits_Allowed() {
 			return Specialist_Visits_Allowed;
 		}
 		public void setSpecialist_Visits_Allowed(int specialist_Visits_Allowed) {
 			Specialist_Visits_Allowed = specialist_Visits_Allowed;
-		}
-		public String getProcess_Date() {
+		}*/
+		public Date getProcess_Date() {
 			return Process_Date;
 		}
-		public void setProcess_Date(String process_Date) {
+		public void setProcess_Date(Date process_Date) {
 			Process_Date = process_Date;
 		}
 		public String getPolicy_Status() {

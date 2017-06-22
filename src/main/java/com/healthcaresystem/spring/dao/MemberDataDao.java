@@ -98,7 +98,7 @@ public class MemberDataDao {
 			count++;
 		}
 		else{
-			ValidationFailure("Applicant Name field not met the requirements", memberdata);
+			ValidationFailure("Applicant Name","Applicant Name field not met the requirements", memberdata);
 			return 0;
 		}
 		
@@ -106,119 +106,119 @@ public class MemberDataDao {
 			count++;
 		}
 		else{
-			ValidationFailure("Door Number field not met the requirements", memberdata);
+			ValidationFailure("Door Number","Door Number field not met the requirements", memberdata);
 			return 0;
 		}
 		if(street.length()>=3 && street.length()<=30 && Character.isAlphabetic(street.charAt(0))){
 			count++;
 		}
 		else{
-			ValidationFailure("Street field not met the requirements", memberdata);
+			ValidationFailure("Street", "Street field not met the requirements", memberdata);
 			return 0;
 		}
 		if(city.length()>=3 && city.length()<=20 && Character.isAlphabetic(city.charAt(0))){
 			count++;
 		}
 		else{
-			ValidationFailure("City field not met the requirements", memberdata);
+			ValidationFailure("City", "City field not met the requirements", memberdata);
 			return 0;
 		}
 		if(statecode.length()==2 && Character.isAlphabetic(statecode.charAt(0))){
 			count++;
 		}
 		else{
-			ValidationFailure("State Code field not met the requirements", memberdata);
+			ValidationFailure("State Code", "State Code field not met the requirements", memberdata);
 			return 0;
 		}
 		if(countrycode.equals("USA")){
 			count++;
 		}
 		else{
-			ValidationFailure("Country Code field not met the requirements", memberdata);
+			ValidationFailure("Country Code", "Country Code field not met the requirements", memberdata);
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{5}$|([0-9]{5}(-[0-9]{4}))?", zipcode)){
 			count++;
 		}
 		else{
-			ValidationFailure("Zip Code field not met the requirements", memberdata);
+			ValidationFailure("Zip Code", "Zip Code field not met the requirements", memberdata);
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}$", cellphoneno)){
 			count++;
 		}
 		else{
-			ValidationFailure("CellPhone Number field not met the requirements", memberdata);
+			ValidationFailure("CellPhone Number", "CellPhone Number field not met the requirements", memberdata);
 			return 0;
 		}
 		if(gender == 'M' || gender == 'F' || gender == 'U'){
 			count++;
 		}
 		else{
-			ValidationFailure("Gender field not met the requirements", memberdata);
+			ValidationFailure("Gender", "Gender field not met the requirements", memberdata);
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{3}-[0-9]{2}-[0-9]{4}$", ssn)){
 			count++;
 		}
 		else{
-			ValidationFailure("SSN field not met the requirements", memberdata);
+			ValidationFailure("SSN", "SSN field not met the requirements", memberdata);
 			return 0;
 		}
 		if(studentind == 'Y' || studentind == 'N' || studentind == ' '){
 			count++;
 		}
 		else{
-			ValidationFailure("Student Identity field not met the requirements", memberdata);
+			ValidationFailure("Student Identity", "Student Identity field not met the requirements", memberdata);
 			return 0;
 		}
 		if(hazardousoccupation == 'Y' || hazardousoccupation == 'N' || hazardousoccupation == ' '){
 			count++;
 		}
 		else{
-			ValidationFailure("Hazardous Occupation field not met the requirements", memberdata);
+			ValidationFailure("Hazardous Occupation", "Hazardous Occupation field not met the requirements", memberdata);
 			return 0;
 		}
 		if(heartdisease == 'Y' || heartdisease == 'N' || heartdisease == ' '){
 			count++;
 		}
 		else{
-			ValidationFailure("Heart Disease field not met the requirements", memberdata);
+			ValidationFailure("Heart Disease", "Heart Disease field not met the requirements", memberdata);
 			return 0;
 		}
 		if(aviationactivities == 'Y' || aviationactivities == 'N' || aviationactivities == ' '){
 			count++;
 		}
 		else{
-			ValidationFailure("Involved in Aviation Activities field not met the requirements", memberdata);
+			ValidationFailure("Involved in Aviation Activities", "Involved in Aviation Activities field not met the requirements", memberdata);
 			return 0;
 		}
 		if(drinkingsmoking == 'Y' || drinkingsmoking == 'N' || drinkingsmoking == ' '){
 			count++;
 		}
 		else{
-			ValidationFailure("Drinking/Smoking Habits field not met the requirements", memberdata);
+			ValidationFailure("Drinking/Smoking Habits", "Drinking/Smoking Habits field not met the requirements", memberdata);
 			return 0;
 		}
 		if(premiumfrequency == 1 || premiumfrequency == 2 || premiumfrequency == 4 || premiumfrequency == 12){
 			count++;
 		}
 		else{
-			ValidationFailure("Premium Frequency field not met the requirements", memberdata);
+			ValidationFailure("Premium Frequency", "Premium Frequency field not met the requirements", memberdata);
 			return 0;
 		}
 		if(coverageamount>=50000 && coverageamount<=500000){
 			count++;
 		}
 		else{
-			ValidationFailure("Premium Frequency field not met the requirements", memberdata);
+			ValidationFailure("Coverage Amount", "Coverage Amount field not met the requirements", memberdata);
 			return 0;
 		}
 		if(deductibleamount<= (50*coverageamount)/100){
 			count++;
 		}
 		else{
-			ValidationFailure("Premium Frequency field not met the requirements", memberdata);
+			ValidationFailure("Deductible Amount", "Deductible Amount field not met the requirements", memberdata);
 			return 0;
 		}
 		
@@ -227,7 +227,7 @@ public class MemberDataDao {
 			count++;
 		}
 		else{
-			ValidationFailure("Agent Code field not met the requirements", memberdata);
+			ValidationFailure("Agent Code", "Agent Code field not met the requirements", memberdata);
 			return 0;
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
@@ -240,7 +240,7 @@ public class MemberDataDao {
 			count++;
 		}
 		catch(Exception E){
-			ValidationFailure("Date fields not met the requirements", memberdata);
+			ValidationFailure("Date fields", "Date fields not met the requirements", memberdata);
 			return 0;
 		}
 		
@@ -276,7 +276,7 @@ public class MemberDataDao {
 	}
 	
 	
-	public void ValidationFailure(String remarks, MemberData memberdata){
+	public void ValidationFailure(String failedfield, String remarks, MemberData memberdata){
 		
 		System.out.println("The validation is failure with the reason "+remarks);
 		
@@ -288,7 +288,7 @@ public class MemberDataDao {
 		failedmemberdata.setDOB(memberdata.getDate_of_Birth().toString());
 		failedmemberdata.setSSN(memberdata.getSSN());
 		failedmemberdata.setError_Description(remarks);
-		failedmemberdata.setField_in_Error(remarks);
+		failedmemberdata.setField_in_Error(failedfield);
 		session.save(failedmemberdata);
 		
 		transaction.commit();
@@ -303,110 +303,110 @@ public class MemberDataDao {
 		Query query = session.createQuery(hql);
 		List<MemberData> memberdatalist = query.list();
 		session.close();
-		
+		if(!memberdatalist.isEmpty()){
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
 	      XSSFSheet spreadsheet = workbook
 	      .createSheet("Enrolled Member Data");
-	      XSSFRow row=spreadsheet.createRow(1);
+	      XSSFRow row=spreadsheet.createRow(0);
 	      XSSFCell cell;
-	      cell=row.createCell(1);
+	      cell=row.createCell(0);
 	      cell.setCellValue("Member ID");
-	      cell=row.createCell(2);
+	      cell=row.createCell(1);
 	      cell.setCellValue("Policy Number");
-	      cell=row.createCell(3);
+	      cell=row.createCell(2);
 	      cell.setCellValue("Applicant Full Name");
-	      cell=row.createCell(4);
+	      cell=row.createCell(3);
 	      cell.setCellValue("Door No");
-	      cell=row.createCell(5);
+	      cell=row.createCell(4);
 	      cell.setCellValue("Street");
-	      cell=row.createCell(6);
+	      cell=row.createCell(5);
 	      cell.setCellValue("City");
-	      cell=row.createCell(7);
+	      cell=row.createCell(6);
 	      cell.setCellValue("State Code");
-	      cell=row.createCell(8);
+	      cell=row.createCell(7);
 	      cell.setCellValue("Country Code");
-	      cell=row.createCell(9);
+	      cell=row.createCell(8);
 	      cell.setCellValue("Zip Code");
-	      cell=row.createCell(10);
+	      cell=row.createCell(9);
 	      cell.setCellValue("Cell Phone No");
-	      cell=row.createCell(11);
+	      cell=row.createCell(10);
 	      cell.setCellValue("Date of Birth");
-	      cell=row.createCell(12);
+	      cell=row.createCell(11);
 	      cell.setCellValue("Gender");
-	      cell=row.createCell(13);
+	      cell=row.createCell(12);
 	      cell.setCellValue("SSN");
-	      cell=row.createCell(14);
+	      cell=row.createCell(13);
 	      cell.setCellValue("Date Policy Applied");
-	      cell=row.createCell(15);
+	      cell=row.createCell(14);
 	      cell.setCellValue("Student Ind");
-	      cell=row.createCell(16);
+	      cell=row.createCell(15);
 	      cell.setCellValue("Hazardous Occupation");
-	      cell=row.createCell(17);
+	      cell=row.createCell(16);
 	      cell.setCellValue("Heart Disease present");
-	      cell=row.createCell(18);
+	      cell=row.createCell(17);
 	      cell.setCellValue("Involved in Aviation Activities");
-	      cell=row.createCell(19);
+	      cell=row.createCell(18);
 	      cell.setCellValue("Drinking/Smoking Habits");
-	      cell=row.createCell(20);
+	      cell=row.createCell(19);
 	      cell.setCellValue("Premium Frequency");
-	      cell=row.createCell(21);
+	      cell=row.createCell(20);
 	      cell.setCellValue("Agent Code");
-	      cell=row.createCell(22);
+	      cell=row.createCell(21);
 	      cell.setCellValue("Coverage Amount");
-	      cell=row.createCell(23);
+	      cell=row.createCell(22);
 	      cell.setCellValue("Policy Status");
 	     
 	     
 	      
-	      int i=2;
+	      int i=1;
 	     for(MemberData m: memberdatalist)
 	      {
 	         row=spreadsheet.createRow(i);
-	         cell=row.createCell(1);
+	         cell=row.createCell(0);
 	         cell.setCellValue(m.getMember_Id());
-	         cell=row.createCell(2);
+	         cell=row.createCell(1);
 	         cell.setCellValue(m.getPolicy_No());
-	         cell=row.createCell(3);
+	         cell=row.createCell(2);
 	         cell.setCellValue(m.getApplicant_Full_Name());
-	         cell=row.createCell(4);
+	         cell=row.createCell(3);
 	         cell.setCellValue(m.getDoor_No());
-	         cell=row.createCell(5);
+	         cell=row.createCell(4);
 	         cell.setCellValue(m.getStreet());
-	         cell=row.createCell(6);
+	         cell=row.createCell(5);
 	         cell.setCellValue(m.getCity());
-	         cell=row.createCell(7);
+	         cell=row.createCell(6);
 	         cell.setCellValue(m.getState_code());
-	         cell=row.createCell(8);
+	         cell=row.createCell(7);
 	         cell.setCellValue(m.getCountry_Code());
-	         cell=row.createCell(9);
+	         cell=row.createCell(8);
 	         cell.setCellValue(m.getZip_Code());
-	         cell=row.createCell(10);
+	         cell=row.createCell(9);
 	         cell.setCellValue(m.getCell_Phone_No());
-	         cell=row.createCell(11);
+	         cell=row.createCell(10);
 	         cell.setCellValue(m.getDate_of_Birth());
-	         cell=row.createCell(12);
+	         cell=row.createCell(11);
 	         cell.setCellValue(m.getGender());
-	         cell=row.createCell(13);
+	         cell=row.createCell(12);
 	         cell.setCellValue(m.getSSN());
-	         cell=row.createCell(14);
+	         cell=row.createCell(13);
 	         cell.setCellValue(m.getDate_Policy_Applied());
-	         cell=row.createCell(15);
+	         cell=row.createCell(14);
 	         cell.setCellValue(m.getStudent_Ind());
-	         cell=row.createCell(16);
+	         cell=row.createCell(15);
 	         cell.setCellValue(m.getHazardous_Occupation());
-	         cell=row.createCell(17);
+	         cell=row.createCell(16);
 	         cell.setCellValue(m.getHeart_Disease_present());
-	         cell=row.createCell(18);
+	         cell=row.createCell(17);
 	         cell.setCellValue(m.getInvolved_in_Aviation_Activities());
-	         cell=row.createCell(19);
+	         cell=row.createCell(18);
 	         cell.setCellValue(m.getDrinking_Smoking_Habits());
-	         cell=row.createCell(20);
+	         cell=row.createCell(19);
 	         cell.setCellValue(m.getPrem_Frequency());
-	         cell=row.createCell(21);
+	         cell=row.createCell(20);
 	         cell.setCellValue(m.getAgent_Code());
-	         cell=row.createCell(22);
+	         cell=row.createCell(21);
 	         cell.setCellValue(m.getCoverage_Amount());
-	         cell=row.createCell(23);
+	         cell=row.createCell(22);
 	         cell.setCellValue(m.getDeductible_Amount());
 	         i++;
 	      }
@@ -416,6 +416,7 @@ public class MemberDataDao {
 	      out.close();
 	      System.out.println(
 	      "enrolledmemberdata.xlsx written successfully");
+		}
 		
 		
 	}
@@ -430,35 +431,37 @@ public class MemberDataDao {
 		
 		session.close();
 		
+		if(!failedmemberdatalist.isEmpty())
+		{
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
 	      XSSFSheet spreadsheet = workbook
 	      .createSheet("Failed Member Data");
-	      XSSFRow row=spreadsheet.createRow(1);
+	      XSSFRow row=spreadsheet.createRow(0);
 	      XSSFCell cell;
-	      cell=row.createCell(1);
+	      cell=row.createCell(0);
 	      cell.setCellValue("SSN");
-	      cell=row.createCell(2);
+	      cell=row.createCell(1);
 	      cell.setCellValue("Date of Birth");
-	      cell=row.createCell(3);
+	      cell=row.createCell(2);
 	      cell.setCellValue("Applicant Full Name");
-	      cell=row.createCell(4);
+	      cell=row.createCell(3);
 	      cell.setCellValue("Field in Error");
-	      cell=row.createCell(5);
+	      cell=row.createCell(4);
 	      cell.setCellValue("Error Description");
 	      
-	      int i=2;
+	      int i=1;
 		     for(FailedMemberData f: failedmemberdatalist)
 		      {
 		         row=spreadsheet.createRow(i);
-		         cell=row.createCell(1);
+		         cell=row.createCell(0);
 		         cell.setCellValue(f.getSSN());
-		         cell=row.createCell(2);
+		         cell=row.createCell(1);
 		         cell.setCellValue(f.getDOB());
-		         cell=row.createCell(3);
+		         cell=row.createCell(2);
 		         cell.setCellValue(f.getApplicant_Full_Name());
-		         cell=row.createCell(4);
+		         cell=row.createCell(3);
 		         cell.setCellValue(f.getField_in_Error());
-		         cell=row.createCell(5);
+		         cell=row.createCell(4);
 		         cell.setCellValue(f.getError_Description());
 		         i++;
 		      }
@@ -468,6 +471,7 @@ public class MemberDataDao {
 		      out.close();
 		      System.out.println(
 		      "failedmemberdata.xlsx written successfully");
+		}
 	      
 	}
 	

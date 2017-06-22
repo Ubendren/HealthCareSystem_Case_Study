@@ -100,9 +100,9 @@
 		enctype="multipart/form-data">
 		<div class="input-group">
 		
-      <input type="file" class="filestyle" data-buttonName="btn-primary">
+      <input type="file" class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
       <br>
-      <button type="button" class="btn btn-danger" value="processExcel2007">Upload</button>
+      <input type="submit" class="btn btn-danger" value="Upload"/>
       
      
        </div>
