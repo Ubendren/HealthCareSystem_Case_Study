@@ -1,12 +1,21 @@
 package com.healthcaresystem.spring.dao;
 import com.healthcaresystem.spring.util.HibernateUtilites;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -42,7 +51,7 @@ public class MemberDataDao {
 	int count;
 	
 	
-	public void ValidateExcelData(MemberData memberdata){
+	public void ValidateExcelData(MemberData memberdata) throws IOException{
 		
 		name = memberdata.getApplicant_Full_Name().trim();
 		doorno = memberdata.getDoor_No(); 
@@ -73,6 +82,9 @@ public class MemberDataDao {
 		
 		if(count == 20)
 			ValidationSuccess(memberdata);
+		
+		GenerateEnrolledExcel();
+		GenerateFailureExcel();
 		
 	}
 	
@@ -246,12 +258,15 @@ public class MemberDataDao {
 			Date sdf = null;
 			try {
 				sdf = new SimpleDateFormat("yyyy/MM/dd").parse(new Date().toString());
+				
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			String policy_No = sdf.toString()+"0000";
 			memberdata.setPolicy_No(policy_No);
+			memberdata.setPolicy_Status("H");
+			memberdata.setProcess_Date(sdf);
 			session.save(memberdata);
 			
 			transaction.commit();
@@ -278,6 +293,182 @@ public class MemberDataDao {
 		
 		transaction.commit();
 		session.close();
+	}
+	
+	public void GenerateEnrolledExcel() throws IOException{
+		sessionFactory = HibernateUtilites.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		String hql = "FROM MemberData";
+		Query query = session.createQuery(hql);
+		List<MemberData> memberdatalist = query.list();
+		session.close();
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
+	      XSSFSheet spreadsheet = workbook
+	      .createSheet("Enrolled Member Data");
+	      XSSFRow row=spreadsheet.createRow(1);
+	      XSSFCell cell;
+	      cell=row.createCell(1);
+	      cell.setCellValue("Member ID");
+	      cell=row.createCell(2);
+	      cell.setCellValue("Policy Number");
+	      cell=row.createCell(3);
+	      cell.setCellValue("Applicant Full Name");
+	      cell=row.createCell(4);
+	      cell.setCellValue("Door No");
+	      cell=row.createCell(5);
+	      cell.setCellValue("Street");
+	      cell=row.createCell(6);
+	      cell.setCellValue("City");
+	      cell=row.createCell(7);
+	      cell.setCellValue("State Code");
+	      cell=row.createCell(8);
+	      cell.setCellValue("Country Code");
+	      cell=row.createCell(9);
+	      cell.setCellValue("Zip Code");
+	      cell=row.createCell(10);
+	      cell.setCellValue("Cell Phone No");
+	      cell=row.createCell(11);
+	      cell.setCellValue("Date of Birth");
+	      cell=row.createCell(12);
+	      cell.setCellValue("Gender");
+	      cell=row.createCell(13);
+	      cell.setCellValue("SSN");
+	      cell=row.createCell(14);
+	      cell.setCellValue("Date Policy Applied");
+	      cell=row.createCell(15);
+	      cell.setCellValue("Student Ind");
+	      cell=row.createCell(16);
+	      cell.setCellValue("Hazardous Occupation");
+	      cell=row.createCell(17);
+	      cell.setCellValue("Heart Disease present");
+	      cell=row.createCell(18);
+	      cell.setCellValue("Involved in Aviation Activities");
+	      cell=row.createCell(19);
+	      cell.setCellValue("Drinking/Smoking Habits");
+	      cell=row.createCell(20);
+	      cell.setCellValue("Premium Frequency");
+	      cell=row.createCell(21);
+	      cell.setCellValue("Agent Code");
+	      cell=row.createCell(22);
+	      cell.setCellValue("Coverage Amount");
+	      cell=row.createCell(23);
+	      cell.setCellValue("Policy Status");
+	     
+	     
+	      
+	      int i=2;
+	     for(MemberData m: memberdatalist)
+	      {
+	         row=spreadsheet.createRow(i);
+	         cell=row.createCell(1);
+	         cell.setCellValue(m.getMember_Id());
+	         cell=row.createCell(2);
+	         cell.setCellValue(m.getPolicy_No());
+	         cell=row.createCell(3);
+	         cell.setCellValue(m.getApplicant_Full_Name());
+	         cell=row.createCell(4);
+	         cell.setCellValue(m.getDoor_No());
+	         cell=row.createCell(5);
+	         cell.setCellValue(m.getStreet());
+	         cell=row.createCell(6);
+	         cell.setCellValue(m.getCity());
+	         cell=row.createCell(7);
+	         cell.setCellValue(m.getState_code());
+	         cell=row.createCell(8);
+	         cell.setCellValue(m.getCountry_Code());
+	         cell=row.createCell(9);
+	         cell.setCellValue(m.getZip_Code());
+	         cell=row.createCell(10);
+	         cell.setCellValue(m.getCell_Phone_No());
+	         cell=row.createCell(11);
+	         cell.setCellValue(m.getDate_of_Birth());
+	         cell=row.createCell(12);
+	         cell.setCellValue(m.getGender());
+	         cell=row.createCell(13);
+	         cell.setCellValue(m.getSSN());
+	         cell=row.createCell(14);
+	         cell.setCellValue(m.getDate_Policy_Applied());
+	         cell=row.createCell(15);
+	         cell.setCellValue(m.getStudent_Ind());
+	         cell=row.createCell(16);
+	         cell.setCellValue(m.getHazardous_Occupation());
+	         cell=row.createCell(17);
+	         cell.setCellValue(m.getHeart_Disease_present());
+	         cell=row.createCell(18);
+	         cell.setCellValue(m.getInvolved_in_Aviation_Activities());
+	         cell=row.createCell(19);
+	         cell.setCellValue(m.getDrinking_Smoking_Habits());
+	         cell=row.createCell(20);
+	         cell.setCellValue(m.getPrem_Frequency());
+	         cell=row.createCell(21);
+	         cell.setCellValue(m.getAgent_Code());
+	         cell=row.createCell(22);
+	         cell.setCellValue(m.getCoverage_Amount());
+	         cell=row.createCell(23);
+	         cell.setCellValue(m.getDeductible_Amount());
+	         i++;
+	      }
+	      FileOutputStream out = new FileOutputStream(
+	      new File("D:/Enrollment Process output folder/enrolledmemberdata.xlsx"));
+	      workbook.write(out);
+	      out.close();
+	      System.out.println(
+	      "enrolledmemberdata.xlsx written successfully");
+		
+		
+	}
+	
+	public void GenerateFailureExcel() throws IOException{
+		sessionFactory = HibernateUtilites.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		
+		String hql = "FROM FailedMemberData";
+		Query query = session.createQuery(hql);
+		List<FailedMemberData> failedmemberdatalist = query.list();
+		
+		session.close();
+		
+		XSSFWorkbook workbook = new XSSFWorkbook(); 
+	      XSSFSheet spreadsheet = workbook
+	      .createSheet("Failed Member Data");
+	      XSSFRow row=spreadsheet.createRow(1);
+	      XSSFCell cell;
+	      cell=row.createCell(1);
+	      cell.setCellValue("SSN");
+	      cell=row.createCell(2);
+	      cell.setCellValue("Date of Birth");
+	      cell=row.createCell(3);
+	      cell.setCellValue("Applicant Full Name");
+	      cell=row.createCell(4);
+	      cell.setCellValue("Field in Error");
+	      cell=row.createCell(5);
+	      cell.setCellValue("Error Description");
+	      
+	      int i=2;
+		     for(FailedMemberData f: failedmemberdatalist)
+		      {
+		         row=spreadsheet.createRow(i);
+		         cell=row.createCell(1);
+		         cell.setCellValue(f.getSSN());
+		         cell=row.createCell(2);
+		         cell.setCellValue(f.getDOB());
+		         cell=row.createCell(3);
+		         cell.setCellValue(f.getApplicant_Full_Name());
+		         cell=row.createCell(4);
+		         cell.setCellValue(f.getField_in_Error());
+		         cell=row.createCell(5);
+		         cell.setCellValue(f.getError_Description());
+		         i++;
+		      }
+		      FileOutputStream out = new FileOutputStream(
+		      new File("D:/Enrollment Process output folder/failedmemberdata.xlsx"));
+		      workbook.write(out);
+		      out.close();
+		      System.out.println(
+		      "failedmemberdata.xlsx written successfully");
+	      
 	}
 	
 }
