@@ -36,6 +36,7 @@
         <mapping class="com.healthcaresystem.spring.model.FailedMemberData"/>
         <mapping class="com.healthcaresystem.spring.model.MemberData"/>
         <mapping class="com.healthcaresystem.spring.model.MemberLogin"/>
+        <mapping class="com.healthcaresystem.spring.model.MasterMember"/>
 
 </session-factory>
 </hibernate-configuration>

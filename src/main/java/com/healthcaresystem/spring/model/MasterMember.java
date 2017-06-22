@@ -1,5 +1,7 @@
 package com.healthcaresystem.spring.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ public class MasterMember {
 	private int Failed_Records;
 	
 	@Column(name="Date_Time")
-	private String Date_Time ;
+	private Date Date_Time ;
 
 	public String getFile_Name() {
 		return File_Name;
@@ -57,11 +59,11 @@ public class MasterMember {
 		Failed_Records = failed_Records;
 	}
 
-	public String getDate_Time() {
+	public Date getDate_Time() {
 		return Date_Time;
 	}
 
-	public void setDate_Time(String date_Time) {
+	public void setDate_Time(Date date_Time) {
 		Date_Time = date_Time;
 	}
 	

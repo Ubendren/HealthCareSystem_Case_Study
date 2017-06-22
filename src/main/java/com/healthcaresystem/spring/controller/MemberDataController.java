@@ -26,7 +26,10 @@ public class MemberDataController {
 MemberDataDao memberdatadao;
 	
 	@RequestMapping(value = "/processExcel", method = RequestMethod.POST)
-	public void processExcel2007(Model model, @RequestParam("excelfile2007") MultipartFile excelfile) {		
+	public void processExcel2007(Model model, @RequestParam("excelfile2007") MultipartFile excelfile) {	
+		
+		String filename = excelfile.getOriginalFilename();
+		
 		try {
 			List<MemberData> lstMemberData = new ArrayList<>();
 			int i = 1;
@@ -49,7 +52,7 @@ MemberDataDao memberdatadao;
 				memberdata.setCity(row.getCell(3).getStringCellValue());
 				memberdata.setState_code(row.getCell(4).getStringCellValue());
 				memberdata.setCountry_Code(row.getCell(5).getStringCellValue());
-				memberdata.setZip_Code(Integer.toBinaryString((int)row.getCell(6).getNumericCellValue()));
+				memberdata.setZip_Code(Integer.toString((int)row.getCell(6).getNumericCellValue()));
 				memberdata.setCell_Phone_No(row.getCell(7).getStringCellValue());
 				memberdata.setDate_of_Birth(row.getCell(8).getDateCellValue());
 				memberdata.setGender((row.getCell(9).getStringCellValue()).charAt(0));
@@ -79,7 +82,9 @@ MemberDataDao memberdatadao;
 				
 				// persist data into database in here
 				lstMemberData.add(memberdata);
-				memberdatadao.ValidateExcelData(memberdata);
+				memberdatadao.ValidateExcelData(filename,lstMemberData.size(),memberdata);
+				
+				memberdatadao.CallUpdateMasterMemberData();
 			}			
 			workbook.close();
 			//model.addAttribute("lstMemberData", lstMemberData);

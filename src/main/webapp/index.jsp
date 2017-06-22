@@ -6,7 +6,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
       <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" id="main-css"/>
-      <link href="css/style.css" rel="stylesheet" id="main-css"/>
       <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>  
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
@@ -70,7 +69,7 @@
                         <input type="password" id="inputPassword" name="inputPassword" class="form-control" required ng-model="postCtrl.inputData.password"/>
                      </div>
                      <br>
-                     <div class="alert alert-danger" class="text-center" ng-show="errorMsg">
+                     <div class="alert alert-danger" class="text-center" ng-show="errorMsg" aria-hidden="true">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                         </button>
                         <span class="glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;{{errorMsg}}

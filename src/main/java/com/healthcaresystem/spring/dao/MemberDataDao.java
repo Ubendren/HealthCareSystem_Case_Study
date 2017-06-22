@@ -20,10 +20,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import com.healthcaresystem.spring.model.FailedMemberData;
+import com.healthcaresystem.spring.model.MasterMember;
 import com.healthcaresystem.spring.model.MemberData;
 
 public class MemberDataDao {
 	FailedMemberData failedmemberdata = new FailedMemberData();
+	MasterMember mastermember = new MasterMember();
 	
 	SessionFactory sessionFactory;
 	
@@ -51,7 +53,12 @@ public class MemberDataDao {
 	int count;
 	
 	
-	public void ValidateExcelData(MemberData memberdata) throws IOException{
+	String filename;
+	int totalrecords;
+	int processedrecords;
+	int failurerecords;
+	
+	public void ValidateExcelData(String filenames, int totalrecord, MemberData memberdata) throws IOException{
 		
 		name = memberdata.getApplicant_Full_Name().trim();
 		doorno = memberdata.getDoor_No(); 
@@ -83,8 +90,11 @@ public class MemberDataDao {
 		if(count == 20)
 			ValidationSuccess(memberdata);
 		
-		GenerateEnrolledExcel();
-		GenerateFailureExcel();
+		 processedrecords = GenerateEnrolledExcel();
+		 failurerecords = GenerateFailureExcel();
+		filename = filenames;
+		totalrecords = totalrecord;
+		
 		
 	}
 	
@@ -295,7 +305,7 @@ public class MemberDataDao {
 		session.close();
 	}
 	
-	public void GenerateEnrolledExcel() throws IOException{
+	public int GenerateEnrolledExcel() throws IOException{
 		sessionFactory = HibernateUtilites.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
@@ -417,11 +427,12 @@ public class MemberDataDao {
 	      System.out.println(
 	      "enrolledmemberdata.xlsx written successfully");
 		}
+		return memberdatalist.size();
 		
 		
 	}
 	
-	public void GenerateFailureExcel() throws IOException{
+	public int GenerateFailureExcel() throws IOException{
 		sessionFactory = HibernateUtilites.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
@@ -472,7 +483,29 @@ public class MemberDataDao {
 		      System.out.println(
 		      "failedmemberdata.xlsx written successfully");
 		}
+		return failedmemberdatalist.size();
 	      
+	}
+	
+	public void CallUpdateMasterMemberData(){
+		UpdateMasterMemberData(filename,totalrecords,processedrecords,failurerecords);
+	}
+	
+	public void UpdateMasterMemberData(String filename, int totalrecords, int processedrecords, int failurerecords){
+		sessionFactory = HibernateUtilites.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		org.hibernate.Transaction transaction = session.beginTransaction();
+		
+		mastermember.setFile_Name(filename);
+		mastermember.setProcessed_Records(processedrecords);
+		mastermember.setTotal_Records(totalrecords);
+		mastermember.setFailed_Records(failurerecords);
+		mastermember.setDate_Time(new Date());
+		session.save(mastermember);
+		
+		transaction.commit();
+		session.close();
+		
 	}
 	
 }
