@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -274,7 +276,7 @@ public class MemberDataDao {
 		
 			System.out.println("The validation is success");
 			
-			sessionFactory = HibernateUtilites.getSessionFactory();
+			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction transaction = session.beginTransaction();
 			
