@@ -248,9 +248,18 @@ public class MemberDataDao {
 		sdf.setLenient(false);
 		String DOB = dateofbirth.toString();
 		String PAD = policyapplieddate.toString();
+		
 		try{
-			sdf.parse(DOB);
-			sdf.parse(PAD);
+			DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z YYYY");
+			Date dateDOB = (Date)format.parse(DOB);
+			Date datePAD = (Date)format.parse(PAD);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateDOB);
+			String DateOfBirth = calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.YEAR); 
+			calendar.setTime(datePAD);
+			String PolicyAppliedDate = calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.YEAR);
+			sdf.parse(DateOfBirth);
+			sdf.parse(PolicyAppliedDate);
 			count++;
 		}
 		catch(Exception E){
@@ -265,29 +274,29 @@ public class MemberDataDao {
 		
 			System.out.println("The validation is success");
 			
-			sessionFactory = HibernateUtil.getSessionFactory();
+			sessionFactory = HibernateUtilites.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction transaction = session.beginTransaction();
 			
-			Date sdf = null;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+			Date currentdate = null;
 			try {
-				sdf = new SimpleDateFormat("yyyy/MM/dd").parse(new Date().toString());
+				currentdate = sdf.parse(sdf.format(new Date()));
+				String policy_No = sdf.format(new Date())+"0000";
+				memberdata.setPolicy_No(policy_No);
+				memberdata.setPolicy_Status("H");
+				memberdata.setProcess_Date(new Date());
+				session.save(memberdata);
 				
+				transaction.commit();
+				session.close();
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			String policy_No = sdf.toString()+"0000";
-			memberdata.setPolicy_No(policy_No);
-			memberdata.setPolicy_Status("H");
-			memberdata.setProcess_Date(sdf);
-			session.save(memberdata);
-			
-			transaction.commit();
-			session.close();
 			
 	
-	}
+	}	
 	
 	
 	public void ValidationFailure(String failedfield, String remarks, MemberData memberdata){
