@@ -36,7 +36,7 @@ public class LoginController {
 		if(validationresult.equals("valid user"))
 			modelandview = new ModelAndView("upload");
 		else
-			modelandview = new ModelAndView("loginfailure");
+			modelandview = new ModelAndView("index","errmsg","INVALID USERNAME OR PASSWORD");
 		
 		return modelandview;
 	}

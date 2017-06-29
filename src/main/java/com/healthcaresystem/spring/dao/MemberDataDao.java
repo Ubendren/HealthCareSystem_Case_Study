@@ -1,5 +1,7 @@
 package com.healthcaresystem.spring.dao;
-import com.healthcaresystem.spring.util.HibernateUtilites;
+import Constants.Constant;
+
+import com.healthcaresystem.spring.util.HibernateUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,6 +60,8 @@ public class MemberDataDao {
 	int processedrecords;
 	int failurerecords;
 	
+	
+	Constant constant = new Constant();
 	public void ValidateExcelData(String filenames, int totalrecord, MemberData memberdata) throws IOException{
 		
 		name = memberdata.getApplicant_Full_Name().trim();
@@ -261,7 +265,7 @@ public class MemberDataDao {
 		
 			System.out.println("The validation is success");
 			
-			sessionFactory = HibernateUtilites.getSessionFactory();
+			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction transaction = session.beginTransaction();
 			
@@ -290,7 +294,7 @@ public class MemberDataDao {
 		
 		System.out.println("The validation is failure with the reason "+remarks);
 		
-		sessionFactory = HibernateUtilites.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		org.hibernate.Transaction transaction = session.beginTransaction();
 		
@@ -306,10 +310,10 @@ public class MemberDataDao {
 	}
 	
 	public int GenerateEnrolledExcel() throws IOException{
-		sessionFactory = HibernateUtilites.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String hql = "FROM MemberData";
+		String hql = constant.fetchingmemberdata;
 		Query query = session.createQuery(hql);
 		List<MemberData> memberdatalist = query.list();
 		session.close();
@@ -433,10 +437,10 @@ public class MemberDataDao {
 	}
 	
 	public int GenerateFailureExcel() throws IOException{
-		sessionFactory = HibernateUtilites.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String hql = "FROM FailedMemberData";
+		String hql =  constant.fetchingfailedmemberdata;
 		Query query = session.createQuery(hql);
 		List<FailedMemberData> failedmemberdatalist = query.list();
 		
@@ -492,7 +496,7 @@ public class MemberDataDao {
 	}
 	
 	public void UpdateMasterMemberData(String filename, int totalrecords, int processedrecords, int failurerecords){
-		sessionFactory = HibernateUtilites.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		org.hibernate.Transaction transaction = session.beginTransaction();
 		

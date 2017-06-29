@@ -7,8 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import Constants.Constant;
+
 import com.healthcaresystem.spring.model.MemberLogin;
-import com.healthcaresystem.spring.util.HibernateUtilites;
+import com.healthcaresystem.spring.util.HibernateUtil;
 
 public class LoginDao {
 
@@ -18,10 +20,12 @@ public class LoginDao {
 	MemberLogin memberlogin;
 	String validationresult;
 	
+	Constant constant = new Constant();
+	
 	public String ValidateLogin(int userid, String password){
 		
 		
-		sessionFactory = HibernateUtilites.getSessionFactory();
+		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		System.out.println(userid);
@@ -46,7 +50,7 @@ public class LoginDao {
 		else
 			validationresult = "invalid user";*/
 		
-		String sql = "SELECT m.Password FROM memberlogin m WHERE m.UserId = :userid";
+		String sql = constant.loginvalidationquery;
 		Query validationquery = session.createSQLQuery(sql);
 		validationquery.setParameter("userid", userid);
 		List passwordlist = validationquery.list();

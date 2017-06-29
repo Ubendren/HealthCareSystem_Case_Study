@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcaresystem.spring.dao.MemberDataDao;
 import com.healthcaresystem.spring.model.MemberData;
@@ -26,8 +27,8 @@ public class MemberDataController {
 MemberDataDao memberdatadao;
 	
 	@RequestMapping(value = "/processExcel", method = RequestMethod.POST)
-	public void processExcel2007(Model model, @RequestParam("excelfile2007") MultipartFile excelfile) {	
-		
+	public ModelAndView processExcel2007(Model model, @RequestParam("excelfile2007") MultipartFile excelfile) {	
+		ModelAndView modelandview = null;
 		String filename = excelfile.getOriginalFilename();
 		
 		try {
@@ -87,10 +88,13 @@ MemberDataDao memberdatadao;
 				memberdatadao.CallUpdateMasterMemberData();
 			}			
 			workbook.close();
+			modelandview = new ModelAndView("upload","successMsg","Upload successful");
 			//model.addAttribute("lstMemberData", lstMemberData);
 		} catch (Exception e) {
 			e.printStackTrace();
+			modelandview = new ModelAndView("upload","successMsg","Uploading suspended due to exception!!!");
 		}
+		return modelandview;
  
 		
 	}
