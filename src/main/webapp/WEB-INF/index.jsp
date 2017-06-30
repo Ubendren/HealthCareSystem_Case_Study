@@ -59,7 +59,7 @@
               <div class="panel-title text-center">LOGIN HERE</div>
             </div>
             <div class="panel-body" >
-               <form name="login" action="login" class="form-horizontal" method="POST">
+               <form name="login" action="login" class="form-horizontal" method="GET">
                  <div class="input-group">
                    <span class="input-group-addon">Username <i class="glyphicon glyphicon-user"></i></span>
                      <input type="text" id="inputUsername" name="inputUsername" class="form-control" required autofocus ng-model="postCtrl.inputData.username"/>
