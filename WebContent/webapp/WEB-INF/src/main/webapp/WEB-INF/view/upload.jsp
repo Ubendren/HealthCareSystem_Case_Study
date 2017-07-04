@@ -86,9 +86,9 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">More  
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/upload.jsp">Upload Enrollment File</a></li>
+            <li><a href="/upload.jsp">Upload Enrollment File</a></li>
             <li><a href="#">Calculate Premium</a></li> 
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/uploadPremiumFile.jsp">Premium Processing</a></li>
+            <li><a href="src/main/webapp/WEB-INF/view/uploadPremiumFile">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">
