@@ -17,10 +17,12 @@
 <bean id="memberlogin" class="com.healthcaresystem.spring.model.MemberLogin" />
 <bean id="failedmemberdata" class="com.healthcaresystem.spring.model.FailedMemberData" />
 <bean id="mastermember" class="com.healthcaresystem.spring.model.MasterMember" />
+<bean id="premiummaster" class="com.healthcaresystem.spring.model.PremiumMaster" />
+
 
 <bean id="memberdatadao" class="com.healthcaresystem.spring.dao.MemberDataDao" />
 <bean id="logindao" class="com.healthcaresystem.spring.dao.LoginDao" />
-
+<bean id="calculatepremiumdao" class="com.healthcaresystem.spring.dao.CalculatePremiumDao" />
 
 
 
