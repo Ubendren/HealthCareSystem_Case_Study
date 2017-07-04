@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -248,9 +250,18 @@ public class MemberDataDao {
 		sdf.setLenient(false);
 		String DOB = dateofbirth.toString();
 		String PAD = policyapplieddate.toString();
+		
 		try{
-			sdf.parse(DOB);
-			sdf.parse(PAD);
+			DateFormat format = new SimpleDateFormat("E MMM dd HH:mm:ss Z YYYY");
+			Date dateDOB = (Date)format.parse(DOB);
+			Date datePAD = (Date)format.parse(PAD);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateDOB);
+			String DateOfBirth = calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.YEAR); 
+			calendar.setTime(datePAD);
+			String PolicyAppliedDate = calendar.get(Calendar.MONTH)+"/"+calendar.get(Calendar.DATE)+"/"+calendar.get(Calendar.YEAR);
+			sdf.parse(DateOfBirth);
+			sdf.parse(PolicyAppliedDate);
 			count++;
 		}
 		catch(Exception E){
@@ -269,25 +280,22 @@ public class MemberDataDao {
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction transaction = session.beginTransaction();
 			
-			Date sdf = null;
-			try {
-				sdf = new SimpleDateFormat("yyyy/MM/dd").parse(new Date().toString());
-				
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			String policy_No = sdf.toString()+"0000";
+			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(new Date());
+			
+			//int serialno = memberdata.getMember_Id()+0000;
+			String policy_No = Integer.toString(calendar.get(Calendar.YEAR))+Integer.toString(calendar.get(Calendar.MONTH+1))
+					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", memberdata.getMember_Id());
+			
 			memberdata.setPolicy_No(policy_No);
-			memberdata.setPolicy_Status("H");
-			memberdata.setProcess_Date(sdf);
+			memberdata.setPolicy_Status("I");
+			memberdata.setProcess_Date(new Date());
 			session.save(memberdata);
 			
 			transaction.commit();
 			session.close();
-			
-	
-	}
+	}	
 	
 	
 	public void ValidationFailure(String failedfield, String remarks, MemberData memberdata){

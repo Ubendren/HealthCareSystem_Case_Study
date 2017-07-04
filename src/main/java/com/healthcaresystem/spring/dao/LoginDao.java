@@ -30,25 +30,7 @@ public class LoginDao {
 		
 		System.out.println(userid);
 		System.out.println(password);
-		/*String hql = "FROM MemberLogin";
-		Query query = session.createQuery(hql);
-		List memberloginlist = query.list();
-		System.out.println(userid);
-		System.out.println(memberloginlist);
-		System.out.println(memberloginlist.contains(userid));
-		if(memberloginlist.contains(userid)){
-			String sql = "SELECT m.Password FROM memberlogin m WHERE m.UserId = :userid";
-			Query validationquery = session.createSQLQuery(sql);
-			validationquery.setParameter("userid", userid);
-			List passwordlist = query.list();
-			if(passwordlist.get(0).equals(password)){
-				validationresult = "valid user";
-			}
-			else
-				validationresult = "invalid user";
-		}
-		else
-			validationresult = "invalid user";*/
+		
 		
 		String sql = constant.loginvalidationquery;
 		Query validationquery = session.createSQLQuery(sql);

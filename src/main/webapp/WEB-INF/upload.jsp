@@ -1,7 +1,7 @@
 <html lang="en">
    <head>
       <meta charset="utf-8"/>
-    
+      <meta name="robots" content="noindex"/>
       <title>file upload  page</title>
       <meta name="viewport" content="width=device-width, initial-scale=1"/>
       <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
@@ -41,28 +41,26 @@
 		      border-radius: 0;
   			  }
   	  	  .navbar li a, .navbar .navbar-brand {
-      		 color: #d5d5d5 !important;
+      		  color: #fff !important;
+  			  }
+  		  .navbar-nav li a:hover, .navbar-nav li.active a {
+      		  color: #f4511e !important;
+      		  background-color: #fff !important;
   			  } 
-  		   .navbar-nav li a:hover {
-      color: #fff !important;
-  }
-  .navbar-nav li.active a {
-      color: #fff !important;
-      background-color: #29292c !important;
-  }
   		  .navbar-default .navbar-toggle {
 			  border-color: transparent;
+			  color: #fff !important;
  			  }
  		  .open .dropdown-toggle {
-      color: #fff;
-      background-color: grey !important;
-  }
-         .dropdown-menu li a {
-      color: #000 !important;
-  }
-  .dropdown-menu li a:hover {
-      background-color: blue !important;
-  }
+              color: #fff;
+      		  background-color: #555 !important;
+  			  }
+          .dropdown-menu li a {
+              color: #000 !important;
+              }
+          .dropdown-menu li a:hover {
+              background-color: red !important;
+              }
  		  .jumbotron {
  		      padding: 100px 25px;
  		      }	
@@ -88,9 +86,9 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">More  
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/upload.jsp">Upload Enrollment File</a></li>
-            <li><a href="#">Calculate Premium</a></li> 
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/uploadPremiumFile.jsp">Premium Processing</a></li>
+            <li><a href="#">Upload Enrollment File</a></li>
+             <li><a href="/HealthCareSystem/calculatepremium" >Calculate Premium</a></li> 
+            <li><a href="#">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -98,7 +96,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">My Profile</a></li>
-            <li><a href="index.jsp">Logout</a></li> 
+            <li><a href="#">Logout</a></li> 
           </ul>
         </li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
@@ -112,10 +110,18 @@
        <form action="processExcel" method="post"
 		enctype="multipart/form-data">
 		<div class="input-group">
-		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
+		<table>
+		<tr>
+		<td width="40%" style="padding-left:0px; padding-right:5px"><p style="color:#808080">BROWSE ENROLLMENT FILE:</p></td>
+		<td width="60%"><input type="file" onchange="checkfile(this);" 
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"></td>
+		</tr>
+		
+		</table>
+		<!-- <p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
 		
 		<input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"> -->
       <br>
       <input type="submit" class="btn btn-danger" value="Upload"/>
       

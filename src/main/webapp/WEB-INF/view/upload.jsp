@@ -86,9 +86,9 @@
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">More  
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/upload.jsp">Upload Enrollment File</a></li>
-            <li><a href="#">Calculate Premium</a></li> 
-            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/uploadPremiumFile.jsp">Premium Processing</a></li>
+            <li><a href="#">Upload Enrollment File</a></li>
+             <li><a href="/HealthCareSystem/calculatepremium" >Calculate Premium</a></li> 
+            <li><a href="#">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -110,10 +110,18 @@
        <form action="processExcel" method="post"
 		enctype="multipart/form-data">
 		<div class="input-group">
-		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
+		<table>
+		<tr>
+		<td width="40%" style="padding-left:0px; padding-right:5px"><p style="color:#808080">BROWSE ENROLLMENT FILE:</p></td>
+		<td width="60%"><input type="file" onchange="checkfile(this);" 
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"></td>
+		</tr>
+		
+		</table>
+		<!-- <p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
 		
 		<input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"> -->
       <br>
       <input type="submit" class="btn btn-danger" value="Upload"/>
       
