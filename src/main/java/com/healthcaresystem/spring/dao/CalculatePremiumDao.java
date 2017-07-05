@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -165,6 +167,7 @@ public class CalculatePremiumDao {
 		Query query = session.createSQLQuery(constant.fetchingageweightage);
 		query.setParameter("agelimit", agelimit);
 		ageweightage = (int) query.list().get(0);
+		System.out.println(ageweightage);
 		
 		session.close();
 		
@@ -180,6 +183,7 @@ public class CalculatePremiumDao {
 		Query query = session.createSQLQuery(constant.fetchinggenderweightage);
 		query.setParameter("gender", gender);
 		genderweightage = (int) query.list().get(0);
+		System.out.println(genderweightage);
 		
 		session.close();
 		return genderweightage;
@@ -209,6 +213,8 @@ public class CalculatePremiumDao {
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		
 		session.close();
+		
+		System.out.println(otherfactorsweightage);
 		
 		return otherfactorsweightage;
 		
@@ -241,6 +247,8 @@ public class CalculatePremiumDao {
 		query.setParameter("coveragelimit", coveragelimit);
 		coverageweightage = (int) query.list().get(0);
 		
+		System.out.println(coverageweightage);
+		
 		session.close();
 		return coverageweightage;
 	}
@@ -251,22 +259,25 @@ public class CalculatePremiumDao {
 		int premiumfactor = 0;
 		String weightagelimit = "";
 		
-		if(weightage<=5 && weightage>=10)
+		if(weightage>=5 && weightage<=10)
 			weightagelimit = "5 <=  x <= 10";
-		if(weightage<=11 && weightage>=15)
+		if(weightage>=11 && weightage<=15)
 			weightagelimit = "11 <=  x <= 15";
-		if(weightage<=16 && weightage>=20)
+		if(weightage>=16 && weightage<=20)
 			weightagelimit = "16 <=  x <= 20";
-		if(weightage<=21 && weightage>=25)
+		if(weightage>=21 && weightage<=25)
 			weightagelimit = "21 <=  x <= 25";
 		if(weightage>26)
 			weightagelimit = "x > 25";
-		
+		System.out.println(weightage);
+		System.out.println(weightagelimit);
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Query query = session.createSQLQuery(constant.fetchingpremiumweighatge);
 		query.setParameter("weightagelimit", weightagelimit);
+		
+		
 		if(query.list().get(0).toString().equals("Rejected"))
 			 throw new SpringException("Total Weightage > 25");
 		else
@@ -296,14 +307,14 @@ public class CalculatePremiumDao {
 		{ 	
 			String sql = "INSERT INTO premiummaster VALUES(:memberid, :policnumber, :sequencenumber, :premiumstrtdate, :premiumendate, :premumamount, :latfee, :premiumpaidate)";
 			Query query = session.createSQLQuery(sql);
+			query.setParameter("memberid", memberid);
 			query.setParameter("policnumber", policynumber);
 			query.setParameter("sequencenumber", i);
 			query.setParameter("premiumstrtdate", policyapplieddate);
 			query.setParameter("premiumendate", premiumenddate);
-			query.setParameter("premiumpaidate", " ");
+			query.setParameter("premiumpaidate", new Date());
 			query.setParameter("premumamount", premiumamount);
-			query.setParameter("latfee", " ");
-			query.setParameter("premumfrequency", premiumfrequency);
+			query.setParameter("latfee", 0);
 			query.executeUpdate();
 			i++;
 			cal.add(Calendar.MONTH, premiumfrequency);
@@ -346,6 +357,13 @@ public class CalculatePremiumDao {
 	      cell=row.createCell(7);
 	      cell.setCellValue("Premium Paid Date");
 	      
+	      
+	      CellStyle cellStyle = workbook.createCellStyle();
+	      CreationHelper createHelper = workbook.getCreationHelper();
+	      cellStyle.setDataFormat(
+	          createHelper.createDataFormat().getFormat("MM/dd/yyyy"));
+	      
+	      
 	      int i=1;
 		     for(PremiumMaster m: premiummasterlist)
 		      {
@@ -358,21 +376,24 @@ public class CalculatePremiumDao {
 		         cell.setCellValue(m.getSequence_Number());
 		         cell=row.createCell(3);
 		         cell.setCellValue(m.getPremium_Start_Date());
+		         cell.setCellStyle(cellStyle);
 		         cell=row.createCell(4);
 		         cell.setCellValue(m.getPremium_End_Date());
+		         cell.setCellStyle(cellStyle);
 		         cell=row.createCell(5);
 		         cell.setCellValue(m.getPremium_Amount());
 		         cell=row.createCell(6);
 		         cell.setCellValue(m.getLate_Fee());
 		         cell=row.createCell(7);
 		         cell.setCellValue(m.getPremium_Paid_Date());
+		         cell.setCellStyle(cellStyle);
 		      }
 		     FileOutputStream out = new FileOutputStream(
 		   	      new File("D:/Enrollment Process output folder/premiummasterfile.xlsx"));
 		   	      workbook.write(out);
 		   	      out.close();
 		   	      System.out.println(
-		   	      "enrolledmemberdata.xlsx written successfully");
+		   	      "premiummasterfile.xlsx written successfully");
 		
 	}
 	}

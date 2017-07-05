@@ -4,14 +4,14 @@
 
 <hibernate-configuration>
    <session-factory>
-  <!--  <property name="hibernate.dialect">
+   <property name="hibernate.dialect">
       org.hibernate.dialect.MySQLDialect
    </property>
    <property name="hibernate.connection.driver_class">
       com.mysql.jdbc.Driver
    </property>
 
-  
+  <!--  Assume students is the database name -->
    <property name="hibernate.connection.url">
       jdbc:mysql://localhost/healthcaresystem
    </property>
@@ -20,9 +20,9 @@
    </property>
    <property name="hibernate.connection.password">
       root
-   </property> -->
+   </property>
    
-   		<property name="hibernate.c3p0.max_size">50</property>
+   		<!-- <property name="hibernate.c3p0.max_size">50</property>
         <property name="connection.pool_size">10</property>
         <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>
         <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
@@ -31,7 +31,7 @@
 		<property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property> 
 		<property name="connection.url">jdbc:sqlserver://PC324381\SQLEXPRESS:1433;databaseName=healthcaresystem</property>
         <property name="connection.username">sa</property> 
-        <property name="connection.password">password-1</property>
+        <property name="connection.password">password-1</property> -->
         
         <mapping class="com.healthcaresystem.spring.model.FailedMemberData"/>
         <mapping class="com.healthcaresystem.spring.model.MemberData"/>

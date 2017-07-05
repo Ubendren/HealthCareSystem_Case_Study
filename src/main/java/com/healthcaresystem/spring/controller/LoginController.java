@@ -24,7 +24,7 @@ public class LoginController {
 	String validationresult;
 	ModelAndView modelandview;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ModelAndView LoginMethod(@ModelAttribute("memberlogin") MemberLogin memberlogin, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session){
 		

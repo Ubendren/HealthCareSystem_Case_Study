@@ -43,10 +43,13 @@
   	  	  .navbar li a, .navbar .navbar-brand {
       		  color: #fff !important;
   			  }
-  		  .navbar-nav li a:hover, .navbar-nav li.active a {
-      		  color: #f4511e !important;
-      		  background-color: #fff !important;
-  			  } 
+  		  .navbar-nav li a:hover {
+      color: #fff !important;
+  }
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+  }
   		  .navbar-default .navbar-toggle {
 			  border-color: transparent;
 			  color: #fff !important;
@@ -59,7 +62,7 @@
               color: #000 !important;
               }
           .dropdown-menu li a:hover {
-              background-color: red !important;
+              background-color: blue !important;
               }
  		  .jumbotron {
  		      padding: 100px 25px;
