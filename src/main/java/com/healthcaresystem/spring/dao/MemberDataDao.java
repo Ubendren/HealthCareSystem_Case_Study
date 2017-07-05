@@ -57,7 +57,7 @@ public class MemberDataDao {
 	double coverageamount;
 	double deductibleamount;
 	int count;
-	int policyfactor = 0;
+	int policynumberfactor;
 	
 	String filename;
 	int totalrecords;
@@ -286,12 +286,15 @@ public class MemberDataDao {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			
-			Query query = session.createSQLQuery("SELECT member_id from memberdata");
+			Query query = session.createSQLQuery("SELECT count(*) from memberdata");
+			if(Integer.parseInt(query.list().get(0).toString()) == 0)
+				policynumberfactor = 1;
+			else
+				policynumberfactor = Integer.parseInt(query.list().get(0).toString());
 			
 			//int serialno = memberdata.getMember_Id()+0000;
 			String policy_No = Integer.toString(calendar.get(Calendar.YEAR))+Integer.toString(calendar.get(Calendar.MONTH+1))
-					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", policyfactor);
-			policyfactor++;
+					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", policynumberfactor+1); 
 			
 			memberdata.setPolicy_No(policy_No);
 			memberdata.setPolicy_Status("I");

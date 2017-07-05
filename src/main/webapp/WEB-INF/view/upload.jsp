@@ -44,12 +44,12 @@
       		  color: #fff !important;
   			  }
   		  .navbar-nav li a:hover {
-      color: #fff !important;
-  }
-  .navbar-nav li.active a {
-      color: #fff !important;
-      background-color: #29292c !important;
-  }
+              color: #fff !important;
+  			  }
+  		  .navbar-nav li.active a {
+               color: #fff !important;
+               background-color: #29292c !important;
+              }
   		  .navbar-default .navbar-toggle {
 			  border-color: transparent;
 			  color: #fff !important;
