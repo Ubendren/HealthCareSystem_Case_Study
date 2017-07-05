@@ -62,11 +62,18 @@
               color: #000 !important;
               }
           .dropdown-menu li a:hover {
-              background-color: blue !important;
+              background-color: #2d2d30 !important;
               }
  		  .jumbotron {
  		      padding: 100px 25px;
+ 		      min-height : 620 px;
+ 		      
+ 		      
  		      }	
+ 		      
+ 		      #loginbox{
+ 		      padding-top: 100px;
+ 		      }
  		
      </style>
    </head>
@@ -99,7 +106,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">My Profile</a></li>
-            <li><a href="#">Logout</a></li> 
+            <li><a href="index.jsp">Logout</a></li> 
           </ul>
         </li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
@@ -117,7 +124,7 @@
 		<tr>
 		<td width="40%" style="padding-left:0px; padding-right:5px"><p style="color:#808080">BROWSE ENROLLMENT FILE:</p></td>
 		<td width="60%"><input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"></td>
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary" required></td>
 		</tr>
 		
 		</table>
@@ -151,5 +158,8 @@
 		</div>
       </div>
       </div>
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+ 
+</nav>
    </body>
    </html>

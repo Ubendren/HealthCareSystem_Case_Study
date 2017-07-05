@@ -15,6 +15,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -55,7 +57,7 @@ public class MemberDataDao {
 	double coverageamount;
 	double deductibleamount;
 	int count;
-	
+	int policyfactor = 0;
 	
 	String filename;
 	int totalrecords;
@@ -284,9 +286,12 @@ public class MemberDataDao {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
 			
+			Query query = session.createSQLQuery("SELECT member_id from memberdata");
+			
 			//int serialno = memberdata.getMember_Id()+0000;
 			String policy_No = Integer.toString(calendar.get(Calendar.YEAR))+Integer.toString(calendar.get(Calendar.MONTH+1))
-					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", memberdata.getMember_Id());
+					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", policyfactor);
+			policyfactor++;
 			
 			memberdata.setPolicy_No(policy_No);
 			memberdata.setPolicy_Status("I");
@@ -378,6 +383,17 @@ public class MemberDataDao {
 	      cell=row.createCell(22);
 	      cell.setCellValue("Policy Status");
 	     
+	      CellStyle cellStyle = workbook.createCellStyle();
+	      CreationHelper createHelper = workbook.getCreationHelper();
+	      cellStyle.setDataFormat(
+	          createHelper.createDataFormat().getFormat("MM/dd/yyyy"));
+	      
+	      
+	      CellStyle cellStyletext = workbook.createCellStyle();
+	      cellStyletext.setDataFormat(
+	          createHelper.createDataFormat().getFormat("Y"));
+	      cell.setCellStyle(cellStyletext);
+	      
 	     
 	      
 	      int i=1;
@@ -406,22 +422,24 @@ public class MemberDataDao {
 	         cell.setCellValue(m.getCell_Phone_No());
 	         cell=row.createCell(10);
 	         cell.setCellValue(m.getDate_of_Birth());
+	         cell.setCellStyle(cellStyle);
 	         cell=row.createCell(11);
-	         cell.setCellValue(m.getGender());
+	         cell.setCellValue((String) Character.toString(m.getGender()));
 	         cell=row.createCell(12);
 	         cell.setCellValue(m.getSSN());
 	         cell=row.createCell(13);
 	         cell.setCellValue(m.getDate_Policy_Applied());
+	         cell.setCellStyle(cellStyle);
 	         cell=row.createCell(14);
-	         cell.setCellValue(m.getStudent_Ind());
+	         cell.setCellValue((String) Character.toString(m.getStudent_Ind()));
 	         cell=row.createCell(15);
-	         cell.setCellValue(m.getHazardous_Occupation());
+	         cell.setCellValue((String) Character.toString(m.getHazardous_Occupation()));
 	         cell=row.createCell(16);
-	         cell.setCellValue(m.getHeart_Disease_present());
+	         cell.setCellValue((String) Character.toString(m.getHeart_Disease_present()));
 	         cell=row.createCell(17);
-	         cell.setCellValue(m.getInvolved_in_Aviation_Activities());
+	         cell.setCellValue((String) Character.toString(m.getInvolved_in_Aviation_Activities()));
 	         cell=row.createCell(18);
-	         cell.setCellValue(m.getDrinking_Smoking_Habits());
+	         cell.setCellValue((String) Character.toString(m.getDrinking_Smoking_Habits()));
 	         cell=row.createCell(19);
 	         cell.setCellValue(m.getPrem_Frequency());
 	         cell=row.createCell(20);
@@ -429,7 +447,7 @@ public class MemberDataDao {
 	         cell=row.createCell(21);
 	         cell.setCellValue(m.getCoverage_Amount());
 	         cell=row.createCell(22);
-	         cell.setCellValue(m.getDeductible_Amount());
+	         cell.setCellValue((String) m.getPolicy_Status());
 	         i++;
 	      }
 	      FileOutputStream out = new FileOutputStream(

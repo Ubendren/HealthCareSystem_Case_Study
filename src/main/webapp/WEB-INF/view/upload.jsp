@@ -43,10 +43,13 @@
   	  	  .navbar li a, .navbar .navbar-brand {
       		  color: #fff !important;
   			  }
-  		  .navbar-nav li a:hover, .navbar-nav li.active a {
-      		  color: #f4511e !important;
-      		  background-color: #fff !important;
-  			  } 
+  		  .navbar-nav li a:hover {
+      color: #fff !important;
+  }
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+  }
   		  .navbar-default .navbar-toggle {
 			  border-color: transparent;
 			  color: #fff !important;
@@ -59,12 +62,18 @@
               color: #000 !important;
               }
           .dropdown-menu li a:hover {
-              background-color: red !important;
+              background-color: #2d2d30 !important;
               }
  		  .jumbotron {
  		      padding: 100px 25px;
+ 		      min-height : 620px;
  		      }	
- 		
+ 		  
+ 		      #loginbox{
+ 		      padding-top: 100px;
+ 		      }
+ 		      
+ 		     
      </style>
    </head>
    <body>
@@ -96,7 +105,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">My Profile</a></li>
-            <li><a href="#">Logout</a></li> 
+            <li><a href="index.jsp">Logout</a></li> 
           </ul>
         </li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
@@ -114,7 +123,7 @@
 		<tr>
 		<td width="40%" style="padding-left:0px; padding-right:5px"><p style="color:#808080">BROWSE ENROLLMENT FILE:</p></td>
 		<td width="60%"><input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"></td>
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary" required></td>
 		</tr>
 		
 		</table>
@@ -123,8 +132,9 @@
 		<input type="file" onchange="checkfile(this);" 
 		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"> -->
       <br>
-      <input type="submit" class="btn btn-danger" value="Upload"/>
-      
+     <div style="text-align: center">
+      <input type="submit" class="btn btn-danger" value="Upload" />
+  </div>
      
        </div>
       </form>
@@ -148,5 +158,8 @@
 		</div>
       </div>
       </div>
+      <nav class="navbar navbar-default navbar-fixed-bottom">
+ 
+</nav>
    </body>
    </html>

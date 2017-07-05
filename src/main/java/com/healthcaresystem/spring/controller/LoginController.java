@@ -24,7 +24,7 @@ public class LoginController {
 	String validationresult;
 	ModelAndView modelandview;
 	
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView LoginMethod(@ModelAttribute("memberlogin") MemberLogin memberlogin, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session){
 		
@@ -36,7 +36,7 @@ public class LoginController {
 		if(validationresult.equals("valid user"))
 			modelandview = new ModelAndView("upload");
 		else
-			modelandview = new ModelAndView("index","errmsg","INVALID USERNAME OR PASSWORD");
+			modelandview = new ModelAndView("index","errmsg","INVALID USERNAME OR PASSWORD");	
 		
 		return modelandview;
 	}
