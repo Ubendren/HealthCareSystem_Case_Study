@@ -3,6 +3,7 @@ package com.healthcaresystem.spring.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -23,6 +24,8 @@ import com.healthcaresystem.spring.model.MemberData;
 
 @Controller
 public class MemberDataController {
+	
+	final static Logger logger = Logger.getLogger(com.healthcaresystem.spring.controller.MemberDataController.class);
 @Autowired
 MemberDataDao memberdatadao;
 	
@@ -71,7 +74,7 @@ MemberDataDao memberdatadao;
 
 				
 				
-				System.out.println(memberdata.getApplicant_Full_Name()+" "+memberdata.getDoor_No()+" "+memberdata.getStreet()
+				logger.debug(memberdata.getApplicant_Full_Name()+" "+memberdata.getDoor_No()+" "+memberdata.getStreet()
 						+" "+memberdata.getCity()+" "+memberdata.getState_code()+" "+memberdata.getCountry_Code()+" "
 						+memberdata.getZip_Code()+" "+memberdata.getCell_Phone_No()+" "+memberdata.getDate_of_Birth()+" "
 						+memberdata.getGender()+" "+memberdata.getSSN()+" "+memberdata.getDate_Policy_Applied()+" "

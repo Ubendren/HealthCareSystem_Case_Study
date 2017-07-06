@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -33,7 +34,7 @@ import com.healthcaresystem.spring.model.PremiumMaster;
 import com.healthcaresystem.spring.util.HibernateUtil;
 
 public class CalculatePremiumDao {
-
+	final static Logger logger = Logger.getLogger(com.healthcaresystem.spring.dao.CalculatePremiumDao.class);
 	@Autowired
 	MemberData memberdata;
 	
@@ -116,7 +117,7 @@ public class CalculatePremiumDao {
 		}
 		else
 		{
-			System.out.println("No records found for calculating premium" );
+			logger.info("No records found for calculating premium" );
 		}
 		
 	}
@@ -138,7 +139,7 @@ public class CalculatePremiumDao {
 				   factor = -1; 
 			  }
 			  age = cal2.get(Calendar.YEAR) - cal1.get(Calendar.YEAR) + factor;
-			  System.out.println("Your age is: "+age);
+			  logger.debug("Your age is: "+age);
 				return age;
 	}
 	
@@ -167,7 +168,7 @@ public class CalculatePremiumDao {
 		Query query = session.createSQLQuery(constant.fetchingageweightage);
 		query.setParameter("agelimit", agelimit);
 		ageweightage = (int) query.list().get(0);
-		System.out.println(ageweightage);
+		logger.debug(ageweightage);
 		
 		session.close();
 		
@@ -183,7 +184,7 @@ public class CalculatePremiumDao {
 		Query query = session.createSQLQuery(constant.fetchinggenderweightage);
 		query.setParameter("gender", gender);
 		genderweightage = (int) query.list().get(0);
-		System.out.println(genderweightage);
+		logger.debug(genderweightage);
 		
 		session.close();
 		return genderweightage;
@@ -214,7 +215,7 @@ public class CalculatePremiumDao {
 		
 		session.close();
 		
-		System.out.println(otherfactorsweightage);
+		logger.debug(otherfactorsweightage);
 		
 		return otherfactorsweightage;
 		
@@ -247,7 +248,7 @@ public class CalculatePremiumDao {
 		query.setParameter("coveragelimit", coveragelimit);
 		coverageweightage = (int) query.list().get(0);
 		
-		System.out.println(coverageweightage);
+		logger.debug(coverageweightage);
 		
 		session.close();
 		return coverageweightage;
@@ -269,8 +270,8 @@ public class CalculatePremiumDao {
 			weightagelimit = "21 <=  x <= 25";
 		if(weightage>26)
 			weightagelimit = "x > 25";
-		System.out.println(weightage);
-		System.out.println(weightagelimit);
+		logger.debug(weightage);
+		logger.debug(weightagelimit);
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
@@ -392,7 +393,7 @@ public class CalculatePremiumDao {
 		   	      new File("D:/Enrollment Process output folder/premiummasterfile.xlsx"));
 		   	      workbook.write(out);
 		   	      out.close();
-		   	      System.out.println(
+		   	     logger.info(
 		   	      "premiummasterfile.xlsx written successfully");
 		
 	}

@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -30,6 +31,9 @@ import com.healthcaresystem.spring.model.MasterMember;
 import com.healthcaresystem.spring.model.MemberData;
 
 public class MemberDataDao {
+	
+	final static Logger logger = Logger.getLogger(com.healthcaresystem.spring.dao.MemberDataDao.class);
+	
 	FailedMemberData failedmemberdata = new FailedMemberData();
 	MasterMember mastermember = new MasterMember();
 	
@@ -96,10 +100,12 @@ public class MemberDataDao {
 				premiumfrequency,agentcode,coverageamount,deductibleamount,memberdata);
 		
 		if(count == 20)
+		{	processedrecords++;
 			ValidationSuccess(memberdata);
+		}
 		
-		 processedrecords = GenerateEnrolledExcel();
-		 failurerecords = GenerateFailureExcel();
+		// processedrecords = GenerateEnrolledExcel();
+		// failurerecords = GenerateFailureExcel();
 		filename = filenames;
 		totalrecords = totalrecord;
 		
@@ -117,6 +123,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Applicant Name","Applicant Name field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		
@@ -125,6 +132,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Door Number","Door Number field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(street.length()>=3 && street.length()<=30 && Character.isAlphabetic(street.charAt(0))){
@@ -132,6 +140,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Street", "Street field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(city.length()>=3 && city.length()<=20 && Character.isAlphabetic(city.charAt(0))){
@@ -139,6 +148,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("City", "City field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(statecode.length()==2 && Character.isAlphabetic(statecode.charAt(0))){
@@ -146,6 +156,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("State Code", "State Code field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(countrycode.equals("USA")){
@@ -153,6 +164,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Country Code", "Country Code field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{5}$|([0-9]{5}(-[0-9]{4}))?", zipcode)){
@@ -160,6 +172,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Zip Code", "Zip Code field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{3}-[0-9]{3}-[0-9]{4}$", cellphoneno)){
@@ -167,6 +180,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("CellPhone Number", "CellPhone Number field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(gender == 'M' || gender == 'F' || gender == 'U'){
@@ -174,6 +188,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Gender", "Gender field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(Pattern.matches("^[0-9]{3}-[0-9]{2}-[0-9]{4}$", ssn)){
@@ -181,6 +196,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("SSN", "SSN field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(studentind == 'Y' || studentind == 'N' || studentind == ' '){
@@ -188,6 +204,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Student Identity", "Student Identity field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(hazardousoccupation == 'Y' || hazardousoccupation == 'N' || hazardousoccupation == ' '){
@@ -195,6 +212,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Hazardous Occupation", "Hazardous Occupation field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(heartdisease == 'Y' || heartdisease == 'N' || heartdisease == ' '){
@@ -202,6 +220,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Heart Disease", "Heart Disease field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(aviationactivities == 'Y' || aviationactivities == 'N' || aviationactivities == ' '){
@@ -209,6 +228,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Involved in Aviation Activities", "Involved in Aviation Activities field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(drinkingsmoking == 'Y' || drinkingsmoking == 'N' || drinkingsmoking == ' '){
@@ -216,6 +236,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Drinking/Smoking Habits", "Drinking/Smoking Habits field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(premiumfrequency == 1 || premiumfrequency == 2 || premiumfrequency == 4 || premiumfrequency == 12){
@@ -223,6 +244,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Premium Frequency", "Premium Frequency field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(coverageamount>=50000 && coverageamount<=500000){
@@ -230,6 +252,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Coverage Amount", "Coverage Amount field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		if(deductibleamount<= (50*coverageamount)/100){
@@ -237,6 +260,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Deductible Amount", "Deductible Amount field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		
@@ -246,6 +270,7 @@ public class MemberDataDao {
 		}
 		else{
 			ValidationFailure("Agent Code", "Agent Code field not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/YYYY");
@@ -268,6 +293,7 @@ public class MemberDataDao {
 		}
 		catch(Exception E){
 			ValidationFailure("Date fields", "Date fields not met the requirements", memberdata);
+			failurerecords++;
 			return 0;
 		}
 		
@@ -276,7 +302,7 @@ public class MemberDataDao {
 	
 	public void ValidationSuccess(MemberData memberdata){
 		
-			System.out.println("The validation is success");
+			logger.info("The validation is success");
 			
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
@@ -288,7 +314,7 @@ public class MemberDataDao {
 			
 			Query query = session.createSQLQuery("SELECT count(*) from memberdata");
 			if(Integer.parseInt(query.list().get(0).toString()) == 0)
-				policynumberfactor = 1;
+				policynumberfactor = 0;
 			else
 				policynumberfactor = Integer.parseInt(query.list().get(0).toString());
 			
@@ -308,7 +334,7 @@ public class MemberDataDao {
 	
 	public void ValidationFailure(String failedfield, String remarks, MemberData memberdata){
 		
-		System.out.println("The validation is failure with the reason "+remarks);
+		logger.debug("The validation is failure with the reason "+remarks);
 		
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
@@ -457,7 +483,7 @@ public class MemberDataDao {
 	      new File("D:/Enrollment Process output folder/enrolledmemberdata.xlsx"));
 	      workbook.write(out);
 	      out.close();
-	      System.out.println(
+	     logger.info(
 	      "enrolledmemberdata.xlsx written successfully");
 		}
 		return memberdatalist.size();
@@ -513,7 +539,7 @@ public class MemberDataDao {
 		      new File("D:/Enrollment Process output folder/failedmemberdata.xlsx"));
 		      workbook.write(out);
 		      out.close();
-		      System.out.println(
+		      logger.info(
 		      "failedmemberdata.xlsx written successfully");
 		}
 		return failedmemberdatalist.size();

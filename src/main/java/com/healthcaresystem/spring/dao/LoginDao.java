@@ -2,6 +2,7 @@ package com.healthcaresystem.spring.dao;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,7 +14,8 @@ import com.healthcaresystem.spring.model.MemberLogin;
 import com.healthcaresystem.spring.util.HibernateUtil;
 
 public class LoginDao {
-
+	
+	final static Logger logger = Logger.getLogger(com.healthcaresystem.spring.dao.LoginDao.class);
 	SessionFactory sessionFactory;
 	
 	@Autowired
@@ -28,15 +30,15 @@ public class LoginDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		System.out.println(userid);
-		System.out.println(password);
+		logger.debug(userid);
+		logger.debug(password);
 		
 		
 		String sql = constant.loginvalidationquery;
 		Query validationquery = session.createSQLQuery(sql);
 		validationquery.setParameter("userid", userid);
 		List passwordlist = validationquery.list();
-		System.out.println(passwordlist);
+		logger.debug(passwordlist);
 		
 		if(!passwordlist.isEmpty()){
 			if(passwordlist.get(0).equals(password)){
@@ -50,7 +52,7 @@ public class LoginDao {
 		
 		
 			
-		System.out.println(validationresult);
+		logger.debug(validationresult);
 		session.close();
 		return validationresult;
 	}
