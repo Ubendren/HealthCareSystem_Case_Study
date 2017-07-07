@@ -7,6 +7,7 @@ import org.hibernate.HibernateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.healthcaresystem.spring.dao.CalculatePremiumDao;
 
@@ -15,11 +16,21 @@ public class CalculatePremiumController {
 	
 	@Autowired
 	CalculatePremiumDao calculatepremiumdao;
+	
+	ModelAndView modelandview;
 
 	@RequestMapping(value = "/calculatepremium")
-	public void CalculatePremium() throws IOException, HibernateException, ParseException{
-		
+	public ModelAndView CalculatePremium() throws IOException, HibernateException, ParseException{
+		try{
 		calculatepremiumdao.CalculatePremium();
+		modelandview = new ModelAndView("upload","successMsg","Premium Calculation is done successfully!!!");
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			modelandview = new ModelAndView("upload","successMsg","Suspended due to Exception!!!");
+		}
+		
+		return modelandview;
 		
 	}
 }

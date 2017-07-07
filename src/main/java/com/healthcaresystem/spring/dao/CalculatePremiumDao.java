@@ -312,7 +312,7 @@ public class CalculatePremiumDao {
 			query.setParameter("policnumber", policynumber);
 			query.setParameter("sequencenumber", i);
 			query.setParameter("premiumstrtdate", policyapplieddate);
-			query.setParameter("premiumendate", premiumenddate);
+			query.setParameter("premiumendate", cal.getTime());
 			query.setParameter("premiumpaidate", new Date());
 			query.setParameter("premumamount", premiumamount);
 			query.setParameter("latfee", 0);
