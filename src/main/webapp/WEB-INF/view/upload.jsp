@@ -44,12 +44,12 @@
       		  color: #fff !important;
   			  }
   		  .navbar-nav li a:hover {
-              color: #fff !important;
-  			  }
-  		  .navbar-nav li.active a {
-               color: #fff !important;
-               background-color: #29292c !important;
-              }
+      color: #fff !important;
+  }
+  .navbar-nav li.active a {
+      color: #fff !important;
+      background-color: #29292c !important;
+  }
   		  .navbar-default .navbar-toggle {
 			  border-color: transparent;
 			  color: #fff !important;
@@ -62,18 +62,12 @@
               color: #000 !important;
               }
           .dropdown-menu li a:hover {
-              background-color: #2d2d30 !important;
+              background-color: blue !important;
               }
  		  .jumbotron {
  		      padding: 100px 25px;
- 		      min-height : 620px;
  		      }	
- 		  
- 		      #loginbox{
- 		      padding-top: 100px;
- 		      }
- 		      
- 		     
+ 		
      </style>
    </head>
    <body>
@@ -97,7 +91,7 @@
           <ul class="dropdown-menu">
             <li><a href="#">Upload Enrollment File</a></li>
              <li><a href="/HealthCareSystem/calculatepremium" >Calculate Premium</a></li> 
-            <li><a href="#">Premium Processing</a></li>
+            <li><a href="webapp/WEB-INF/src/main/webapp/WEB-INF/view/uploadPremiumFile.jsp">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -105,7 +99,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">My Profile</a></li>
-            <li><a href="index.jsp">Logout</a></li> 
+            <li><a href="#">Logout</a></li> 
           </ul>
         </li>
         <li><a href="#"><span class="glyphicon glyphicon-search"></span></a></li>
@@ -116,14 +110,14 @@
 	</nav>
 	 <div class="jumbotron clearfix">
        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
-       <form action="processExcel" method="post"
+       <form action="processExcel" method="Post"
 		enctype="multipart/form-data">
 		<div class="input-group">
 		<table>
 		<tr>
 		<td width="40%" style="padding-left:0px; padding-right:5px"><p style="color:#808080">BROWSE ENROLLMENT FILE:</p></td>
 		<td width="60%"><input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary" required></td>
+		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"></td>
 		</tr>
 		
 		</table>
@@ -132,9 +126,8 @@
 		<input type="file" onchange="checkfile(this);" 
 		class="filestyle" name="excelfile2007" data-buttonName="btn-primary"> -->
       <br>
-     <div style="text-align: center">
-      <input type="submit" class="btn btn-danger" value="Upload" />
-  </div>
+      <input type="submit" class="btn btn-danger" value="Upload"/>
+      
      
        </div>
       </form>
@@ -158,8 +151,5 @@
 		</div>
       </div>
       </div>
-      <nav class="navbar navbar-default navbar-fixed-bottom">
- 
-</nav>
    </body>
    </html>

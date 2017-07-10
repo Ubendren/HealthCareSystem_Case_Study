@@ -90,7 +90,7 @@
           <ul class="dropdown-menu">
             <li><a href="upload.jsp">Upload Enrollment File</a></li>
             <li><a href="#">Calculate Premium</a></li> 
-            <li><a href="/uploadPremiumFile.jsp">Premium Processing</a></li>
+            <li><a href="HealthCareSystem/uploadPremiumFile">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -109,7 +109,7 @@
 	</nav>
 	 <div class="jumbotron clearfix">
        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
-       <form action="processExcel" method="post"
+       <form action="/HealthCareSystem/uploadPremium" method="Post"
 		enctype="multipart/form-data">
 		<div class="input-group">
 		<p style="color:#808080">BROWSE PREMIUM FILE:</p>
