@@ -254,7 +254,7 @@ public class CalculatePremiumDao {
 		return coverageweightage;
 	}
 	
-	@ExceptionHandler({SpringException.class})
+	
 	public double PremiumCalculation(int weightage, double coverageamount){
 		double PremiumAmount = 0;
 		int premiumfactor = 0;
@@ -275,12 +275,12 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		Query query = session.createSQLQuery(constant.fetchingpremiumweighatge);
-		query.setParameter("weightagelimit", weightagelimit);
+		Query query = session.createSQLQuery(constant.fetchingpremiumweightage);
+		query.setString("weightagelimit", weightagelimit);
 		
 		
 		if(query.list().get(0).toString().equals("Rejected"))
-			 throw new SpringException("Total Weightage > 25");
+			premiumfactor = 0;
 		else
 		premiumfactor = Integer.parseInt(query.list().get(0).toString().substring(0, 2));
 		

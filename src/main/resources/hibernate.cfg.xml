@@ -37,7 +37,9 @@
         <mapping class="com.healthcaresystem.spring.model.MemberData"/>
         <mapping class="com.healthcaresystem.spring.model.MemberLogin"/>
         <mapping class="com.healthcaresystem.spring.model.MasterMember"/>
-         <mapping class="com.healthcaresystem.spring.model.PremiumMaster"/>
+        <mapping class="com.healthcaresystem.spring.model.PremiumMaster"/>
+        <mapping class="com.healthcaresystem.spring.model.PremiumProcess"/>
+        <mapping class="com.healthcaresystem.spring.model.PremiumRejectData"/>
 
 </session-factory>
 </hibernate-configuration>
