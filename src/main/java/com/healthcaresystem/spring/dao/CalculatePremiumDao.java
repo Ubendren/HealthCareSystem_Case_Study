@@ -108,6 +108,17 @@ public class CalculatePremiumDao {
 			
 			premiumamount = PremiumCalculation(weightage, coverageamount);
 			
+			if(premiumamount == 0)
+			{	logger.info("Rejected premium");
+				memberdata.setPolicy_Status("H");
+				session.update(memberdata);
+			}
+			else{
+				logger.info("Not rejected premium");
+				memberdata.setPolicy_Status("A");
+				session.update(memberdata);
+			}
+			
 			PopulatePremiumMasterTable(memberid,policynumber,premiumamount,policyapplieddate,premiumfrequency);
 			
 			GeneratePremiumMasterFile();
@@ -293,16 +304,18 @@ public class CalculatePremiumDao {
 		
 	}
 	
-	public void PopulatePremiumMasterTable(int memberid, String policynumber, double premiumamount, Date policyapplieddate, int premiumfrequency){
+	public void PopulatePremiumMasterTable(int memberid, String policynumber, double premiumamount, Date policyapplieddate, int premiumfrequency) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		Calendar cal = Calendar.getInstance();
+		Calendar cal1 = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		cal2.setTime(policyapplieddate);
 		
 		Date premiumenddate = policyapplieddate;
-		cal.setTime(premiumenddate);
-		cal.add(Calendar.MONTH, premiumfrequency);
+		cal1.setTime(premiumenddate);
+		cal1.add(Calendar.MONTH, premiumfrequency);
 		int i=1;
 		for(int seqnum=1; seqnum<=premiumfrequency;seqnum++)
 		{ 	
@@ -311,14 +324,15 @@ public class CalculatePremiumDao {
 			query.setParameter("memberid", memberid);
 			query.setParameter("policnumber", policynumber);
 			query.setParameter("sequencenumber", i);
-			query.setParameter("premiumstrtdate", policyapplieddate);
-			query.setParameter("premiumendate", cal.getTime());
+			query.setParameter("premiumstrtdate", cal2.getTime());
+			query.setParameter("premiumendate", cal1.getTime());
 			query.setParameter("premiumpaidate", new Date());
 			query.setParameter("premumamount", premiumamount);
 			query.setParameter("latfee", 0);
 			query.executeUpdate();
 			i++;
-			cal.add(Calendar.MONTH, premiumfrequency);
+			cal1.add(Calendar.MONTH, premiumfrequency);
+			cal2.add(Calendar.MONTH, premiumfrequency);
 			
 		}
 		
@@ -331,9 +345,10 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String hql = constant.fetchingpremiummaster;
-		Query query = session.createQuery(hql);
+		String sql = constant.fetchingpremiummaster;
+		Query query = session.createQuery(sql);
 		List<PremiumMaster> premiummasterlist = query.list();
+		logger.debug("The list of premium master list in generating excel method"+premiummasterlist.size());
 		session.close();
 		if(!premiummasterlist.isEmpty()){
 		XSSFWorkbook workbook = new XSSFWorkbook(); 
@@ -371,23 +386,32 @@ public class CalculatePremiumDao {
 		         row=spreadsheet.createRow(i);
 		         cell=row.createCell(0);
 		         cell.setCellValue(m.getMember_Id());
+		         logger.debug(m.getMember_Id());
 		         cell=row.createCell(1);
 		         cell.setCellValue(m.getPolicy_Number());
+		         logger.debug(m.getPolicy_Number());
 		         cell=row.createCell(2);
 		         cell.setCellValue(m.getSequence_Number());
+		         logger.debug(m.getSequence_Number());
 		         cell=row.createCell(3);
 		         cell.setCellValue(m.getPremium_Start_Date());
+		         logger.debug(m.getPremium_Start_Date());
 		         cell.setCellStyle(cellStyle);
 		         cell=row.createCell(4);
 		         cell.setCellValue(m.getPremium_End_Date());
+		         logger.debug(m.getPremium_End_Date());
 		         cell.setCellStyle(cellStyle);
 		         cell=row.createCell(5);
 		         cell.setCellValue(m.getPremium_Amount());
+		         logger.debug(m.getPremium_Amount());
 		         cell=row.createCell(6);
 		         cell.setCellValue(m.getLate_Fee());
+		         logger.debug(m.getLate_Fee());
 		         cell=row.createCell(7);
 		         cell.setCellValue(m.getPremium_Paid_Date());
+		         logger.debug(m.getPremium_Paid_Date());
 		         cell.setCellStyle(cellStyle);
+		         i++;
 		      }
 		     FileOutputStream out = new FileOutputStream(
 		   	      new File("D:/Enrollment Process output folder/premiummasterfile.xlsx"));

@@ -21,14 +21,17 @@
 		    letter-spacing: 0px;
 		    border-radius: 0;
   				}
-  	  .navbar-brand {
+  	   .navbar-brand {
   	  	color : #fff;
   	  }
   		
  		.jumbotron{
  		        padding: 100px 25px;
- 	
- 		        }		 
+ 	             min-height : 620px;
+ 		        }	
+ 		  #loginbox{
+ 		    padding-top: 100px;
+ 		    }	 
       </style>
    </head>
    <body ng-app="postLogin" ng-controller="PostController as postCtrl" >
@@ -71,7 +74,6 @@
                  <div class="input-group">
                    <span class="input-group-addon">Password   <i class="glyphicon glyphicon-lock"></i></span>
                       <input type="password" id="inputPassword" name="inputPassword" class="form-control" required ng-model="postCtrl.inputData.password"/>
-                 
                  </div>
                  <br>
                 <!--  <div class="alert alert-danger" class="text-center" ng-show="errorMsg" aria-hidden="true">
@@ -89,6 +91,9 @@
             </div>
          </div>
       </div>
+       <nav class="navbar navbar-default navbar-fixed-bottom">
+ 
+</nav>
     <script src="app1.js"></script>
    </body>
 </html>

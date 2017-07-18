@@ -91,6 +91,8 @@ MemberDataDao memberdatadao;
 				
 			}			
 			workbook.close();
+			memberdatadao.GenerateEnrolledExcel();
+			memberdatadao.GenerateFailureExcel();
 			memberdatadao.CallUpdateMasterMemberData();
 			modelandview = new ModelAndView("upload","successMsg","Upload successful!!!");
 			//model.addAttribute("lstMemberData", lstMemberData);

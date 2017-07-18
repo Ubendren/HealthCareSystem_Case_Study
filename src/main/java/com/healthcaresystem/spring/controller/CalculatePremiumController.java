@@ -23,12 +23,15 @@ public class CalculatePremiumController {
 	public ModelAndView CalculatePremium() throws IOException, HibernateException, ParseException{
 		try{
 		calculatepremiumdao.CalculatePremium();
+	//	calculatepremiumdao.GeneratePremiumMasterFile();
 		modelandview = new ModelAndView("upload","successMsg","Premium Calculation is done successfully!!!");
 		}
 		catch(Exception e){
 			e.printStackTrace();
 			modelandview = new ModelAndView("upload","successMsg","Suspended due to Exception!!!");
 		}
+		
+		
 		
 		return modelandview;
 		

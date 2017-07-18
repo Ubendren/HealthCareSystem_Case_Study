@@ -27,8 +27,11 @@
   		
  		.jumbotron{
  		        padding: 100px 25px;
- 	
- 		        }		 
+ 	             min-height : 620px;
+ 		        }	
+ 		  #loginbox{
+ 		    padding-top: 100px;
+ 		    }	 
       </style>
    </head>
    <body ng-app="postLogin" ng-controller="PostController as postCtrl" >
@@ -88,6 +91,9 @@
             </div>
          </div>
       </div>
+       <nav class="navbar navbar-default navbar-fixed-bottom">
+ 
+</nav>
     <script src="app1.js"></script>
    </body>
 </html>

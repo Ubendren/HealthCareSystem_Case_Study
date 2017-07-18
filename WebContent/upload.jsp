@@ -55,7 +55,7 @@
  			  }
  		  .open .dropdown-toggle {
       color: #fff;
-      background-color: #555 !important;
+      background-color: grey !important;
   }
          .dropdown-menu li a {
       color: #000 !important;
@@ -65,8 +65,12 @@
   }
  		  .jumbotron {
  		      padding: 100px 25px;
+ 		      min-height : 620px;
  		      }	
+ 		#loginbox{
  		
+ 		        padding-top: 100px;
+ 		        }
      </style>
    </head>
    <body>
@@ -89,7 +93,7 @@
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="upload.jsp">Upload Enrollment File</a></li>
-            <li><a href="#">Calculate Premium</a></li> 
+            <li><a href="calculatepremium">Calculate Premium</a></li> 
             <li><a href="uploadPremiumFile.jsp">Premium Processing</a></li>
           </ul>
         </li>
@@ -112,7 +116,7 @@
        <form action="processExcel" method="post"
 		enctype="multipart/form-data">
 		<div class="input-group">
-		<p style="color:#808080">BROWSE PREMIUM FILE:</p>
+		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
 		
 		<input type="file" onchange="checkfile(this);" 
 		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
@@ -142,5 +146,8 @@
 		</div>
       </div>
       </div>
+       <nav class="navbar navbar-default navbar-fixed-bottom">
+ 
+</nav>
    </body>
    </html>
