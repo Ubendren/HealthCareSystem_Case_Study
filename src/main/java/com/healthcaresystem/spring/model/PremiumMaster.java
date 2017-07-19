@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +14,9 @@ import javax.persistence.Table;
 public class PremiumMaster {
 	
 	
-	@Id
+	@Id @GeneratedValue
+	@Column(name="primarykeyid", nullable = false)
+	private int primarykeyid;
 	@Column(name="Member_Id", nullable = false)
 		private int Member_Id;
 	@Column(name="Policy_Number")

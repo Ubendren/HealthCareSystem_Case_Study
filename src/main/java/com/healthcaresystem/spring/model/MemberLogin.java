@@ -14,7 +14,7 @@ public class MemberLogin {
 	
 	@Id
 	@Column(name="UserId", nullable = false)
-	private int UserId;
+	private String UserId;
 	
 	@Column(name="Password")
 	private String Password;
@@ -46,12 +46,12 @@ public class MemberLogin {
 	}
 
 
-	public int getUserId() {
+	public String getUserId() {
 		return UserId;
 	}
 
 
-	public void setUserId(int userId) {
+	public void setUserId(String userId) {
 		UserId = userId;
 	}
 

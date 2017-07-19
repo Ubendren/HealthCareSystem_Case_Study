@@ -72,12 +72,12 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 		}
 		public int Validations(PremiumProcess premiumProcess) throws IOException{
 			
-			member_id=premiumprocess.getMember_Id();
-			policy_number=premiumprocess.getPolicy_Number();
-			policy_start_date=premiumprocess.getPremium_Start_Date();
-			policy_end_date=premiumprocess.getPremium_End_Date();
-			premium_amount=premiumprocess.getPremium_Amount();
-			late_fee=premiumprocess.getLate_Fee();
+			member_id=premiumProcess.getMember_Id();
+			policy_number=premiumProcess.getPolicy_Number();
+			policy_start_date=premiumProcess.getPremium_Start_Date();
+			policy_end_date=premiumProcess.getPremium_End_Date();
+			premium_amount=premiumProcess.getPremium_Amount();
+			late_fee=premiumProcess.getLate_Fee();
 			policy_status=memberData.getPolicy_Status();
 			count = 0;
 			
@@ -90,8 +90,12 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			
 			for(PremiumMaster premiummaster : premiummasterlist){
 			
+				Query query1 = session.createSQLQuery("Select md.Policy_Status FROM memberdata md WHERE md.Member_Id = :memberid");
+				query1.setParameter("memberid", premiummaster.getMember_Id());
+				String policystatus = query1.list().get(0).toString();
+				System.out.println(policystatus);
 			
-			if(premiummaster.getPolicy_Number().equals("A"))
+			if(policystatus.equals("A"))
 				count++;
 			else
 			{
@@ -100,7 +104,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			}	
 				
 				
-			if(premiummaster.getPremium_Amount()==premium_amount)
+			if(premiummaster.getPremium_Amount() == premium_amount)
 				count++;
 			
 			else

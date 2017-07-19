@@ -11,7 +11,7 @@ public class Constant {
 	public static final String fetchinghazardousweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'Hazardous Job'";
 	public static final String fetchingheartdiseaseweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'Other existing Decease'";
 	public static final String fetchingstudentweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'student'";
-	public static final String fetchingdrinkingweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'Drinking Smoking'";
+	public static final String fetchingdrinkingweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'Smoking_Drinking'";
 	public static final String fetchingaviationweightage = "SELECT o.Weightage FROM otherfactorsreferencetable o WHERE o.Other_Factors = 'Outdoor'";
 	public static final String fetchingcoverageweightage = "SELECT c.Weightage FROM coverageamountreferencetable c WHERE c.Coverage_Amount = :coveragelimit";
 	public static final String fetchingpremiumweightage = "SELECT p.Premium FROM premiumreferencetable p WHERE p.Weightage = :weightagelimit";

@@ -32,7 +32,7 @@ public class LoginController {
 			HttpServletResponse response, HttpSession session){
 		
 		logger.info("This is Login Controller");
-		int userid = Integer.parseInt(request.getParameter("inputUsername"));
+		String userid = request.getParameter("inputUsername");
 		String password = request.getParameter("inputPassword");
 		
 		validationresult = logindao.ValidateLogin(userid,password);

@@ -24,11 +24,11 @@ public class CalculatePremiumController {
 		try{
 		calculatepremiumdao.CalculatePremium();
 	//	calculatepremiumdao.GeneratePremiumMasterFile();
-		modelandview = new ModelAndView("upload","successMsg","Premium Calculation is done successfully!!!");
+		modelandview = new ModelAndView("PremCalResult","successMsg","Premium Calculation is done successfully!!!");
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			modelandview = new ModelAndView("upload","successMsg","Suspended due to Exception!!!");
+			modelandview = new ModelAndView("PremCalResult","successMsg","Suspended due to Exception!!!");
 		}
 		
 		

@@ -83,6 +83,7 @@ public class CalculatePremiumDao {
 		
 		for(MemberData memberdata:memberdatalist)
 		{
+			Transaction transaction=session.beginTransaction();
 			memberid = memberdata.getMember_Id();
 			policynumber = memberdata.getPolicy_No();
 			gender = memberdata.getGender();
@@ -122,7 +123,7 @@ public class CalculatePremiumDao {
 			PopulatePremiumMasterTable(memberid,policynumber,premiumamount,policyapplieddate,premiumfrequency);
 			
 			GeneratePremiumMasterFile();
-		
+		transaction.commit();
 		}
 		session.close();
 		}
@@ -219,6 +220,7 @@ public class CalculatePremiumDao {
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(drinkingsmokinghabits == 'Y'){
 			query = session.createSQLQuery(constant.fetchingdrinkingweightage);
+			System.out.println("hahaha"+query.list().size());
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(aviationactivities == 'Y'){
 			query = session.createSQLQuery(constant.fetchingaviationweightage);
@@ -279,7 +281,7 @@ public class CalculatePremiumDao {
 			weightagelimit = "16 <=  x <= 20";
 		if(weightage>=21 && weightage<=25)
 			weightagelimit = "21 <=  x <= 25";
-		if(weightage>26)
+		if(weightage>=26)
 			weightagelimit = "x > 25";
 		logger.debug(weightage);
 		logger.debug(weightagelimit);
@@ -287,7 +289,7 @@ public class CalculatePremiumDao {
 		Session session = sessionFactory.openSession();
 		
 		Query query = session.createSQLQuery(constant.fetchingpremiumweightage);
-		query.setString("weightagelimit", weightagelimit);
+		query.setParameter("weightagelimit", weightagelimit);
 		
 		
 		if(query.list().get(0).toString().equals("Rejected"))
@@ -315,11 +317,25 @@ public class CalculatePremiumDao {
 		
 		Date premiumenddate = policyapplieddate;
 		cal1.setTime(premiumenddate);
-		cal1.add(Calendar.MONTH, premiumfrequency);
+		
+		int flag = 0;
+		if(premiumfrequency == 1)
+			flag=12;
+		else if(premiumfrequency == 2)
+			flag=6;
+		else if(premiumfrequency == 4)
+			flag=3;
+		else if(premiumfrequency == 12)
+			flag=1;
+		
+		
+			
+		cal1.add(Calendar.MONTH, flag);
 		int i=1;
 		for(int seqnum=1; seqnum<=premiumfrequency;seqnum++)
 		{ 	
-			String sql = "INSERT INTO premiummaster VALUES(:memberid, :policnumber, :sequencenumber, :premiumstrtdate, :premiumendate, :premumamount, :latfee, :premiumpaidate)";
+			String sql = "INSERT INTO premiummaster (Member_Id,Policy_Number,Sequence_Number,Premium_Start_Date,Premium_End_Date,Premium_Amount,Late_Fee,Premium_Paid_Date) "
+					+ "VALUES(:memberid, :policnumber, :sequencenumber, :premiumstrtdate, :premiumendate, :premumamount, :latfee, :premiumpaidate)";
 			Query query = session.createSQLQuery(sql);
 			query.setParameter("memberid", memberid);
 			query.setParameter("policnumber", policynumber);
@@ -331,8 +347,8 @@ public class CalculatePremiumDao {
 			query.setParameter("latfee", 0);
 			query.executeUpdate();
 			i++;
-			cal1.add(Calendar.MONTH, premiumfrequency);
-			cal2.add(Calendar.MONTH, premiumfrequency);
+			cal1.add(Calendar.MONTH, flag);
+			cal2.add(Calendar.MONTH, flag);
 			
 		}
 		

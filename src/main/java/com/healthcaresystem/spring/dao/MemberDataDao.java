@@ -319,7 +319,7 @@ public class MemberDataDao {
 				policynumberfactor = Integer.parseInt(query.list().get(0).toString());
 			
 			//int serialno = memberdata.getMember_Id()+0000;
-			String policy_No = Integer.toString(calendar.get(Calendar.YEAR))+Integer.toString(calendar.get(Calendar.MONTH+1))
+			String policy_No = Integer.toString(calendar.get(Calendar.YEAR))+Integer.toString(calendar.get(Calendar.MONTH)+1)
 					+Integer.toString(calendar.get(Calendar.DATE))+String.format("%04d", policynumberfactor+1); 
 			
 			memberdata.setPolicy_No(policy_No);
@@ -345,7 +345,7 @@ public class MemberDataDao {
 		failedmemberdata.setSSN(memberdata.getSSN());
 		failedmemberdata.setError_Description(remarks);
 		failedmemberdata.setField_in_Error(failedfield);
-		session.save(failedmemberdata);
+		session.saveOrUpdate(failedmemberdata);
 		
 		transaction.commit();
 		session.close();

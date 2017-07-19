@@ -24,7 +24,7 @@ public class LoginDao {
 	
 	Constant constant = new Constant();
 	
-	public String ValidateLogin(int userid, String password){
+	public String ValidateLogin(String userid, String password){
 		
 		
 		sessionFactory = HibernateUtil.getSessionFactory();
