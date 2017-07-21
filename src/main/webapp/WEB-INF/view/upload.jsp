@@ -12,19 +12,24 @@
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
       <script type="text/javascript" src="js/bootstrap-filestyle.min.js"> </script>
       <script type="text/javascript" language="javascript"></script>
-      <script>
-         function checkfile(sender) {
-         var validExts = new Array(".xlsx", ".xls");
-         var fileExt = sender.value;
-         fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
-           if (validExts.indexOf(fileExt) < 0) {
-              alert("Invalid file selected, valid files are of " +
-              validExts.toString() + " types.");
-              return false;
-              }
-           else return true;
-          }
-       </script>
+     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> 
+<script type="text/javascript" language="javascript">
+function checkfile(sender) {
+    var validExts = new Array(".xlsx", ".xls");
+    var fileExt = sender.value;
+    fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+    if (validExts.indexOf(fileExt) < 0) {
+      alert("Invalid file selected, valid files are of " +
+               validExts.toString() + " types.");
+      return false;
+    }
+    else {
+    	
+    	$('input:submit').attr('disabled',false);
+    }
+}
+</script>
+
        <style>
           body {
              font: 400 15px/1.8 Lato, sans-serif;
@@ -70,6 +75,7 @@
  		#loginbox{
  		
  		        padding-top: 100px;
+ 		        padding-left:300px;
  		        }
      </style>
    </head>
@@ -87,7 +93,7 @@
     		</div>
     		 <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#myPage">HOME</a></li>
+        <li><a href="index.jsp">HOME</a></li>
         <li class="dropdown">
           <a class="dropdown-toggle" data-toggle="dropdown" href="#">More  
           <span class="caret"></span></a>
@@ -112,20 +118,26 @@
   		
 	</nav>
 	 <div class="jumbotron clearfix">
-       <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
+       <div id="loginbox" >
        <form action="processExcel" method="post"
 		enctype="multipart/form-data">
 		<div class="input-group">
+		<div class="row">
+		 <div class="col-sm-7">
 		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
-		
-		<input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
+		 </div>
+		<div class="col-sm-5">
+        <input type="file" id="file" onchange="checkfile(this);"
+        class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
       <br>
-      <input type="submit" class="btn btn-danger" value="Upload"/>
-      
+      <input type="submit" class="btn btn-danger" value="Upload" disabled />
      
        </div>
+       </div>
+      </div>
       </form>
+     
+      
       <div id="successMsg">
 		<%
 		String successMsg = (String) request.getAttribute("successMsg");

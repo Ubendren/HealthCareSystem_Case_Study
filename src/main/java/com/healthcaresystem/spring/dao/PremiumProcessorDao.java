@@ -1,6 +1,6 @@
 package com.healthcaresystem.spring.dao;
 
-	import Constants.Constant;
+	import com.healthcaresystem.spring.util.Constant;
 	import com.healthcaresystem.spring.util.HibernateUtil;
 	import java.io.File;
 	import java.io.FileOutputStream;

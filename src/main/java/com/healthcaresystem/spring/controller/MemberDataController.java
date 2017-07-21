@@ -42,14 +42,17 @@ MemberDataDao memberdatadao;
 			// Creates a worksheet object representing the first sheet
 			XSSFSheet worksheet = workbook.getSheetAt(0);
 			// Reads the data in excel file until last row is encountered
+			System.out.println(worksheet.getLastRowNum());
+			System.out.println(i);
 			while (i <= worksheet.getLastRowNum()) {
 				// Creates an object for the UserInfo Model
+				System.out.println(i);
 				MemberData memberdata = new MemberData();
 				// Creates an object representing a single row in excel
 				XSSFRow row = worksheet.getRow(i++);
 				// Sets the Read data to the model class
 				
-				
+				System.out.println(row.getCell(0).getStringCellValue());
 				memberdata.setApplicant_Full_Name(row.getCell(0).getStringCellValue());
 				memberdata.setDoor_No((int)row.getCell(1).getNumericCellValue());
 				memberdata.setStreet(row.getCell(2).getStringCellValue());

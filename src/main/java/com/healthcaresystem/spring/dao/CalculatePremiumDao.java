@@ -26,7 +26,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import Constants.Constant;
+import com.healthcaresystem.spring.util.Constant;
 import SpringException.SpringException;
 
 import com.healthcaresystem.spring.model.MemberData;
@@ -42,8 +42,7 @@ public class CalculatePremiumDao {
 	PremiumMaster premiummaster;
 	
 	SessionFactory sessionFactory;
-	
-	Constant constant = new Constant();
+
 	
 	int memberid;
 	String policynumber;
@@ -72,7 +71,7 @@ public class CalculatePremiumDao {
 		
 		Date currentdate = new Date();
 		
-		Query query = session.createQuery(constant.calculatingpremiummaster);
+		Query query = session.createQuery(Constant.calculatingpremiummaster);
 		query.setParameter("currentdate", sdf.parse(sdf.format(new Date())));
 		query.setParameter("nextdate", sdf.parse(sdf.format(calendar.getTime())));
 		
@@ -177,7 +176,7 @@ public class CalculatePremiumDao {
 		
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
-		Query query = session.createSQLQuery(constant.fetchingageweightage);
+		Query query = session.createSQLQuery(Constant.fetchingageweightage);
 		query.setParameter("agelimit", agelimit);
 		ageweightage = (int) query.list().get(0);
 		logger.debug(ageweightage);
@@ -193,7 +192,7 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		Query query = session.createSQLQuery(constant.fetchinggenderweightage);
+		Query query = session.createSQLQuery(Constant.fetchinggenderweightage);
 		query.setParameter("gender", gender);
 		genderweightage = (int) query.list().get(0);
 		logger.debug(genderweightage);
@@ -210,20 +209,20 @@ public class CalculatePremiumDao {
 		
 		Query query = null;
 		if(hazardousoccupation == 'Y'){
-			query = session.createSQLQuery(constant.fetchinghazardousweightage);
+			query = session.createSQLQuery(Constant.fetchinghazardousweightage);
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(heartdisease == 'Y'){
-			query = session.createSQLQuery(constant.fetchingheartdiseaseweightage);
+			query = session.createSQLQuery(Constant.fetchingheartdiseaseweightage);
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(studentind == 'Y'){
-			query = session.createSQLQuery(constant.fetchingstudentweightage);
+			query = session.createSQLQuery(Constant.fetchingstudentweightage);
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(drinkingsmokinghabits == 'Y'){
-			query = session.createSQLQuery(constant.fetchingdrinkingweightage);
+			query = session.createSQLQuery(Constant.fetchingdrinkingweightage);
 			System.out.println("hahaha"+query.list().size());
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(aviationactivities == 'Y'){
-			query = session.createSQLQuery(constant.fetchingaviationweightage);
+			query = session.createSQLQuery(Constant.fetchingaviationweightage);
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		
 		session.close();
@@ -257,7 +256,7 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		Query query = session.createSQLQuery(constant.fetchingcoverageweightage);
+		Query query = session.createSQLQuery(Constant.fetchingcoverageweightage);
 		query.setParameter("coveragelimit", coveragelimit);
 		coverageweightage = (int) query.list().get(0);
 		
@@ -288,7 +287,7 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		Query query = session.createSQLQuery(constant.fetchingpremiumweightage);
+		Query query = session.createSQLQuery(Constant.fetchingpremiumweightage);
 		query.setParameter("weightagelimit", weightagelimit);
 		
 		
@@ -361,7 +360,7 @@ public class CalculatePremiumDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String sql = constant.fetchingpremiummaster;
+		String sql = Constant.fetchingpremiummaster;
 		Query query = session.createQuery(sql);
 		List<PremiumMaster> premiummasterlist = query.list();
 		logger.debug("The list of premium master list in generating excel method"+premiummasterlist.size());

@@ -8,7 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import Constants.Constant;
+import com.healthcaresystem.spring.util.Constant;
 
 import com.healthcaresystem.spring.model.MemberLogin;
 import com.healthcaresystem.spring.util.HibernateUtil;
@@ -22,7 +22,7 @@ public class LoginDao {
 	MemberLogin memberlogin;
 	String validationresult;
 	
-	Constant constant = new Constant();
+	
 	
 	public String ValidateLogin(String userid, String password){
 		
@@ -34,7 +34,7 @@ public class LoginDao {
 		logger.debug(password);
 		
 		
-		String sql = constant.loginvalidationquery;
+		String sql = Constant.loginvalidationquery;
 		Query validationquery = session.createSQLQuery(sql);
 		validationquery.setParameter("userid", userid);
 		List passwordlist = validationquery.list();

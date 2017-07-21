@@ -1,7 +1,8 @@
 package com.healthcaresystem.spring.dao;
-import Constants.Constant;
+import com.healthcaresystem.spring.util.Constant;
 
 import com.healthcaresystem.spring.util.HibernateUtil;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +13,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -69,7 +71,7 @@ public class MemberDataDao {
 	int failurerecords;
 	
 	
-	Constant constant = new Constant();
+	
 	public void ValidateExcelData(String filenames, int totalrecord, MemberData memberdata) throws IOException{
 		
 		name = memberdata.getApplicant_Full_Name().trim();
@@ -308,6 +310,9 @@ public class MemberDataDao {
 			Session session = sessionFactory.openSession();
 			org.hibernate.Transaction transaction = session.beginTransaction();
 			
+			
+			
+			
 			SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(new Date());
@@ -325,13 +330,52 @@ public class MemberDataDao {
 			memberdata.setPolicy_No(policy_No);
 			memberdata.setPolicy_Status("I");
 			memberdata.setProcess_Date(new Date());
-			session.save(memberdata);
 			
+			
+			String hql = "SELECT m.member_id FROM memberdata m WHERE m.Applicant_Full_name = :name and m.Date_of_Birth = :birth";
+			Query q = session.createSQLQuery(hql);
+			logger.info("memberdata.getName() " + memberdata.getApplicant_Full_Name());
+			logger.info("memberdata.getDate_of_Birth() " + memberdata.getDate_of_Birth());
+			q.setParameter("name", memberdata.getApplicant_Full_Name());
+			q.setParameter("birth", memberdata.getDate_of_Birth());
+			
+			
+			List validatelist = q.list();
+			
+			if(!validatelist.isEmpty()){
+			logger.info("validatelist " + validatelist.size());
+			Iterator it = validatelist.iterator();
+			while(it.hasNext())  
+			{
+				//System.out.println(it.next());
+			 /* MemberData std = (MemberData)it.next();*/
+				int memberid = (int) it.next();
+				System.out.println(memberid);
+			/*  System.out.println("std.getMember_Id() " + std.getMember_Id());
+			  int memberId = std.getMember_Id();*/
+			  Object obj4 = session.load(MemberData.class, new Integer(memberid));  	
+			  MemberData s5 = (MemberData) obj4;
+			  logger.info(s5.getApplicant_Full_Name());
+           //   s5.setPolicy_No(memberdata.getPolicy_No());
+			  s5.setApplicant_Full_Name(memberdata.getApplicant_Full_Name());
+			  s5.setProcess_Date(new Date());
+			  s5.setCity(memberdata.getCity());
+             // memberdata.setPolicy_No(s5.getPolicy_No());
+             // memberdata.setProcess_Date(new Date());
+              session.update(s5);
+			   
+			}
+			logger.info("validatelist " + validatelist.size());
+			}
+			else{
+			session.save(memberdata);
+			}
 			transaction.commit();
 			session.close();
 	}	
 	
-	
+
+
 	public void ValidationFailure(String failedfield, String remarks, MemberData memberdata){
 		
 		logger.debug("The validation is failure with the reason "+remarks);
@@ -355,7 +399,7 @@ public class MemberDataDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String hql = constant.fetchingmemberdata;
+		String hql = Constant.fetchingmemberdata;
 		Query query = session.createQuery(hql);
 		List<MemberData> memberdatalist = query.list();
 		session.close();
@@ -495,7 +539,7 @@ public class MemberDataDao {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		
-		String hql =  constant.fetchingfailedmemberdata;
+		String hql =  Constant.fetchingfailedmemberdata;
 		Query query = session.createQuery(hql);
 		List<FailedMemberData> failedmemberdatalist = query.list();
 		
