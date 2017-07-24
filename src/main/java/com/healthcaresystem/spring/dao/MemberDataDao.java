@@ -359,7 +359,12 @@ public class MemberDataDao {
            //   s5.setPolicy_No(memberdata.getPolicy_No());
 			  s5.setApplicant_Full_Name(memberdata.getApplicant_Full_Name());
 			  s5.setProcess_Date(new Date());
+			  s5.setDoor_No(memberdata.getDoor_No());
 			  s5.setCity(memberdata.getCity());
+			  s5.setStreet(memberdata.getStreet());
+			  s5.setPrem_Frequency(memberdata.getPrem_Frequency());
+			  s5.setSSN(memberdata.getSSN());
+			  s5.setCell_Phone_No(memberdata.getCell_Phone_No());
              // memberdata.setPolicy_No(s5.getPolicy_No());
              // memberdata.setProcess_Date(new Date());
               session.update(s5);

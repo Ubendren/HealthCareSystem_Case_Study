@@ -351,7 +351,6 @@ public class CalculatePremiumDao {
 			
 		}
 		
-		
 		transaction.commit();
 		session.close();
 	}
@@ -395,6 +394,7 @@ public class CalculatePremiumDao {
 	          createHelper.createDataFormat().getFormat("MM/dd/yyyy"));
 	      
 	      
+	      
 	      int i=1;
 		     for(PremiumMaster m: premiummasterlist)
 		      {
@@ -436,5 +436,6 @@ public class CalculatePremiumDao {
 		   	      "premiummasterfile.xlsx written successfully");
 		
 	}
+		
 	}
 }

@@ -45,7 +45,9 @@ PremiumProcessorDao premiumprocessordao;
 					XSSFRow row = worksheet.getRow(i++);
 					// Sets the Read data to the model class
 					premiumdata.setMember_Id((int)row.getCell(0).getNumericCellValue());
-					premiumdata.setPolicy_Number(Integer.toString((int)(row.getCell(1).getNumericCellValue())));
+					System.out.println(row.getCell(1).getStringCellValue());
+					premiumdata.setPolicy_Number(row.getCell(1).getStringCellValue());
+					
 					premiumdata.setPremium_Start_Date((row.getCell(2).getDateCellValue()));
 					premiumdata.setPremium_End_Date(row.getCell(3).getDateCellValue());
 					premiumdata.setPremium_Amount((row.getCell(4).getNumericCellValue()));

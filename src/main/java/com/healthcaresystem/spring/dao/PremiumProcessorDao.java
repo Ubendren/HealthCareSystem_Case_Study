@@ -5,7 +5,7 @@ package com.healthcaresystem.spring.dao;
 	import java.io.File;
 	import java.io.FileOutputStream;
 	import java.io.IOException;
-import java.text.DateFormat;
+    import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -46,7 +46,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 		int member_id;
 		String policy_number;
 		
-		Constant constant = new Constant();
+		
 		MemberData memberData =new MemberData();
 		PremiumMaster premiumMaster=new PremiumMaster();
 		
@@ -81,11 +81,17 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			policy_status=memberData.getPolicy_Status();
 			count = 0;
 			
+			System.out.println(member_id+" "+policy_number+" "+policy_start_date+" "+policy_end_date
+					+" "+premium_amount+" "+late_fee+" "+policy_status);
+			
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			
+			Query query = session.createQuery("FROM PremiumMaster WHERE Member_Id = :memberid AND Premium_Start_Date = :premiumstartdate");
+			query.setParameter("memberid", member_id);
+			query.setParameter("premiumstartdate", policy_start_date);
 			
-			Query query = session.createQuery("FROM PremiumMaster WHERE Member_Id = member_id");
+			
 			List<PremiumMaster> premiummasterlist = query.list();
 			
 			for(PremiumMaster premiummaster : premiummasterlist){
@@ -94,7 +100,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 				query1.setParameter("memberid", premiummaster.getMember_Id());
 				String policystatus = query1.list().get(0).toString();
 				System.out.println(policystatus);
-			
+				System.out.println(policystatus.equals("A"));
 			if(policystatus.equals("A"))
 				count++;
 			else
@@ -103,7 +109,8 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 				return 0;
 			}	
 				
-				
+				System.out.println("premiummaster.getPremium_Amount()"+premiummaster.getPremium_Amount());
+				System.out.println("premium_amount"+premium_amount);
 			if(premiummaster.getPremium_Amount() == premium_amount)
 				count++;
 			
@@ -112,11 +119,35 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 				{ValidationFailure("Premium Amount", "Premium Amount is not match", premiumProcess);
 				return 0;
 				}
+			System.out.println("premiummaster.getMember_Id() " + premiummaster.getMember_Id());
+			
+			System.out.println("member_id" + member_id);
+            System.out.println("premiummaster.getPolicy_Number " + premiummaster.getPolicy_Number());
+			
+			System.out.println("policy_number" + policy_number);
+			System.out.println("premiummaster.getPremium_Start_Date() " + premiummaster.getPremium_Start_Date());
+			System.out.println("policy_start_date" + policy_start_date);
+			System.out.println("premiummaster.getPremium_End_Date() " + premiummaster.getPremium_End_Date());
+			System.out.println("policy_end_date" + policy_end_date);
+            System.out.println("premiummaster.getLate_Fee() " + premiummaster.getLate_Fee());
+			
+			System.out.println("late_fee" + late_fee);
+			
+			System.out.println(premiummaster.getMember_Id()==member_id);
+			System.out.println(premiummaster.getPolicy_Number().equals(policy_number));
+			System.out.println(premiummaster.getPremium_Start_Date().equals(policy_start_date));
+			System.out.println(premiummaster.getPremium_End_Date().equals(policy_end_date));
+			
+			
+			
+			
+			
+			
 			if(premiummaster.getMember_Id()==member_id && premiummaster.getPolicy_Number().equals(policy_number) 
 					&& premiummaster.getPremium_Start_Date().equals(policy_start_date) && premiummaster.getPremium_End_Date().equals(policy_end_date) )
 				count++;
 			else
-				{ValidationFailure("Incorrect Misamtch", "Incorrect data", premiumProcess);
+				{ValidationFailure("Incorrect Mismatch", "Incorrect data", premiumProcess);
 			return 0;
 				}
 			}
@@ -172,7 +203,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			
-			String hql = constant.fetchingpremiumdata;
+			String hql = Constant.fetchingpremiumdata;
 			Query query = session.createQuery(hql);
 			List<PremiumProcess> premiumdatalist = query.list();
 			session.close();
@@ -227,7 +258,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
 			
-			String hql =  constant.fetchingpremiumdetails;
+			String hql =  Constant.fetchingpremiumdetails;
 			Query query = session.createQuery(hql);
 			List<PremiumRejectData> failedrejectdatalist = query.list();
 			
