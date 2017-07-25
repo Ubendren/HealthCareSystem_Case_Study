@@ -334,8 +334,8 @@ public class MemberDataDao {
 			
 			String hql = "SELECT m.member_id FROM memberdata m WHERE m.Applicant_Full_name = :name and m.Date_of_Birth = :birth";
 			Query q = session.createSQLQuery(hql);
-			logger.info("memberdata.getName() " + memberdata.getApplicant_Full_Name());
-			logger.info("memberdata.getDate_of_Birth() " + memberdata.getDate_of_Birth());
+			logger.debug("memberdata.getName() " + memberdata.getApplicant_Full_Name());
+			logger.debug("memberdata.getDate_of_Birth() " + memberdata.getDate_of_Birth());
 			q.setParameter("name", memberdata.getApplicant_Full_Name());
 			q.setParameter("birth", memberdata.getDate_of_Birth());
 			
@@ -343,19 +343,19 @@ public class MemberDataDao {
 			List validatelist = q.list();
 			
 			if(!validatelist.isEmpty()){
-			logger.info("validatelist " + validatelist.size());
+			logger.debug("validatelist " + validatelist.size());
 			Iterator it = validatelist.iterator();
 			while(it.hasNext())  
 			{
-				//System.out.println(it.next());
+				//logger.debug(it.next());
 			 /* MemberData std = (MemberData)it.next();*/
 				int memberid = (int) it.next();
-				System.out.println(memberid);
-			/*  System.out.println("std.getMember_Id() " + std.getMember_Id());
+				logger.debug(memberid);
+			/*  logger.debug("std.getMember_Id() " + std.getMember_Id());
 			  int memberId = std.getMember_Id();*/
 			  Object obj4 = session.load(MemberData.class, new Integer(memberid));  	
 			  MemberData s5 = (MemberData) obj4;
-			  logger.info(s5.getApplicant_Full_Name());
+			  logger.debug(s5.getApplicant_Full_Name());
            //   s5.setPolicy_No(memberdata.getPolicy_No());
 			  s5.setApplicant_Full_Name(memberdata.getApplicant_Full_Name());
 			  s5.setProcess_Date(new Date());
@@ -370,7 +370,7 @@ public class MemberDataDao {
               session.update(s5);
 			   
 			}
-			logger.info("validatelist " + validatelist.size());
+			logger.debug("validatelist " + validatelist.size());
 			}
 			else{
 			session.save(memberdata);

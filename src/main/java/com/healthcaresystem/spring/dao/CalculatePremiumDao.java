@@ -219,7 +219,6 @@ public class CalculatePremiumDao {
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(drinkingsmokinghabits == 'Y'){
 			query = session.createSQLQuery(Constant.fetchingdrinkingweightage);
-			System.out.println("hahaha"+query.list().size());
 			otherfactorsweightage = otherfactorsweightage+(int)query.list().get(0);}
 		if(aviationactivities == 'Y'){
 			query = session.createSQLQuery(Constant.fetchingaviationweightage);

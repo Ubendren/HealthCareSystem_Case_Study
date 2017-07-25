@@ -6,13 +6,14 @@ package com.healthcaresystem.spring.dao;
 	import java.io.FileOutputStream;
 	import java.io.IOException;
     import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
+    import java.text.SimpleDateFormat;
+    import java.util.Calendar;
+    import java.util.Date;
 	import java.util.List;
-import java.util.regex.Pattern;
+	import java.util.regex.Pattern;
 
-import org.apache.poi.xssf.usermodel.XSSFCell;
+	import org.apache.log4j.Logger;
+	import org.apache.poi.xssf.usermodel.XSSFCell;
 	import org.apache.poi.xssf.usermodel.XSSFRow;
 	import org.apache.poi.xssf.usermodel.XSSFSheet;
 	import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -20,12 +21,13 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 	import org.hibernate.Session;
 	import org.hibernate.SessionFactory;
 
-import com.healthcaresystem.spring.model.MemberData;
-import com.healthcaresystem.spring.model.PremiumMaster;
-import com.healthcaresystem.spring.model.PremiumProcess;
+	import com.healthcaresystem.spring.model.MemberData;
+	import com.healthcaresystem.spring.model.PremiumMaster;
+	import com.healthcaresystem.spring.model.PremiumProcess;
 	import com.healthcaresystem.spring.model.PremiumRejectData;
 
 	public class PremiumProcessorDao {
+		final static Logger logger = Logger.getLogger(com.healthcaresystem.spring.dao.PremiumProcessorDao.class);
 		
 		PremiumRejectData rejectdata = new PremiumRejectData();
 		PremiumProcess premiumprocess = new PremiumProcess();
@@ -81,13 +83,12 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			policy_status=memberData.getPolicy_Status();
 			count = 0;
 			
-			System.out.println(member_id+" "+policy_number+" "+policy_start_date+" "+policy_end_date
+			logger.debug(member_id+" "+policy_number+" "+policy_start_date+" "+policy_end_date
 					+" "+premium_amount+" "+late_fee+" "+policy_status);
 			
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
-			
-			Query query = session.createQuery("FROM PremiumMaster WHERE Member_Id = :memberid AND Premium_Start_Date = :premiumstartdate");
+			Query query = session.createQuery(Constant.calculatingpremiumprocessor);
 			query.setParameter("memberid", member_id);
 			query.setParameter("premiumstartdate", policy_start_date);
 			
@@ -96,62 +97,60 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			
 			for(PremiumMaster premiummaster : premiummasterlist){
 			
-				Query query1 = session.createSQLQuery("Select md.Policy_Status FROM memberdata md WHERE md.Member_Id = :memberid");
+				Query query1 = session.createSQLQuery(Constant.fetchingmemberid);
 				query1.setParameter("memberid", premiummaster.getMember_Id());
 				String policystatus = query1.list().get(0).toString();
-				System.out.println(policystatus);
-				System.out.println(policystatus.equals("A"));
-			if(policystatus.equals("A"))
-				count++;
-			else
-			{
-				ValidationFailure("Policy_Status", "Policy Status is not active ", premiumProcess);
-				return 0;
-			}	
+				logger.debug(policystatus);
+				logger.debug(policystatus.equals("A"));
+			    if(policystatus.equals("A"))
+			    	count++;
+			    else
+			    	{
+			    		ValidationFailure("Policy_Status", "Policy Status is not active ", premiumProcess);
+			    		return 0;
+			    	}	
 				
-				System.out.println("premiummaster.getPremium_Amount()"+premiummaster.getPremium_Amount());
-				System.out.println("premium_amount"+premium_amount);
-			if(premiummaster.getPremium_Amount() == premium_amount)
+				logger.debug("premiummaster.getPremium_Amount()"+premiummaster.getPremium_Amount());
+				logger.debug("premium_amount"+premium_amount);
+			    if(premiummaster.getPremium_Amount() == premium_amount)
 				count++;
 			
-			else
+			    else
 			
 				{ValidationFailure("Premium Amount", "Premium Amount is not match", premiumProcess);
 				return 0;
 				}
-			System.out.println("premiummaster.getMember_Id() " + premiummaster.getMember_Id());
+
 			
-			System.out.println("member_id" + member_id);
-            System.out.println("premiummaster.getPolicy_Number " + premiummaster.getPolicy_Number());
+			logger.debug(premiummaster.getMember_Id()==member_id);
+			logger.debug(premiummaster.getPolicy_Number().equals(policy_number));
+			logger.debug(premiummaster.getPremium_Start_Date().equals(policy_start_date));
+			logger.debug(premiummaster.getPremium_End_Date().equals(policy_end_date));
 			
-			System.out.println("policy_number" + policy_number);
-			System.out.println("premiummaster.getPremium_Start_Date() " + premiummaster.getPremium_Start_Date());
-			System.out.println("policy_start_date" + policy_start_date);
-			System.out.println("premiummaster.getPremium_End_Date() " + premiummaster.getPremium_End_Date());
-			System.out.println("policy_end_date" + policy_end_date);
-            System.out.println("premiummaster.getLate_Fee() " + premiummaster.getLate_Fee());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 			
-			System.out.println("late_fee" + late_fee);
+		//	Date d = premiummaster.getPremium_Start_Date();
+			String s1 = sdf.format(premiummaster.getPremium_Start_Date());
+			String s2 = sdf.format(policy_start_date);
+			System.out.println(s1);
+			System.out.println(s2);
+			System.out.println(s1.equals(s2));
 			
-			System.out.println(premiummaster.getMember_Id()==member_id);
-			System.out.println(premiummaster.getPolicy_Number().equals(policy_number));
-			System.out.println(premiummaster.getPremium_Start_Date().equals(policy_start_date));
-			System.out.println(premiummaster.getPremium_End_Date().equals(policy_end_date));
-			
-			
-			
-			
+			String s3 = sdf.format(premiummaster.getPremium_End_Date());
+			String s4 = sdf.format(policy_end_date);
+			System.out.println(s3);
+			System.out.println(s4);
+			System.out.println(s3.equals(s4));
 			
 			
 			if(premiummaster.getMember_Id()==member_id && premiummaster.getPolicy_Number().equals(policy_number) 
-					&& premiummaster.getPremium_Start_Date().equals(policy_start_date) && premiummaster.getPremium_End_Date().equals(policy_end_date) )
+					&& s1.equals(s2) && s3.equals(s4))
 				count++;
 			else
 				{ValidationFailure("Incorrect Mismatch", "Incorrect data", premiumProcess);
 			return 0;
 				}
 			}
-				//	if(member_id==memberdata.getMember_Id() && policy_number.equals(memberdata.getPolicy_No()) && policy_start_date.equals(memberdata.getS)
 			
 			return count;
 		}
@@ -161,7 +160,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 		
 		public void ValidationSuccess(PremiumProcess premiumProcess){
 			
-				System.out.println("The validation is success");
+				logger.info("The validation is success");
 				
 				sessionFactory = HibernateUtil.getSessionFactory();
 				Session session = sessionFactory.openSession();
@@ -174,7 +173,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 		
 		public void ValidationFailure(String failedfield, String remarks, PremiumProcess premiumProcess){
 			
-			System.out.println("The validation is failure with the reason "+remarks);
+			logger.debug("The validation is failure with the reason "+remarks);
 			
 			sessionFactory = HibernateUtil.getSessionFactory();
 			Session session = sessionFactory.openSession();
@@ -247,7 +246,7 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 		      new File("D:/Enrollment Process output folder/premiummemberdata.xlsx"));
 		      workbook.write(out);
 		      out.close();
-		      System.out.println("premiummemberdata.xlsx written successfully");
+		      logger.info("premiummemberdata.xlsx written successfully");
 			}
 			return premiumdatalist.size();
 			
@@ -317,39 +316,14 @@ import com.healthcaresystem.spring.model.PremiumProcess;
 			      new File("D:/Enrollment Process output folder/failedpremiumdata.xlsx"));
 			      workbook.write(out);
 			      out.close();
-			      System.out.println(
+			      logger.info(
 			      "failedpremiumdata.xlsx written successfully");
 			}
 			return failedrejectdatalist.size();
 		      
 		}
 		
-		/*public void CallUpdatePremiumData(){
-			UpdatePremiumData(member_id,policy_number,policy_start_date,policy_end_date,premium_amount,late_fee);
-		}
 		
-		public void UpdatePremiumData(int memberid,String policyno,Date startdate, Date enddate,double amount,double latefee)
-		{
-			sessionFactory = HibernateUtil.getSessionFactory();
-			Session session = sessionFactory.openSession();
-			org.hibernate.Transaction transaction = session.beginTransaction();
-			
-			rejectdata.setMember_Id(memberid);
-			rejectdata.setPolicy_Number(policyno);
-			rejectdata.setPremium_Start_Date(startdate);
-			rejectdata.setPremium_End_Date(enddate);
-			rejectdata.setPremium_Amount(amount);
-			rejectdata.setLate_Fee(latefee);
-			rejectdata.setProcess_Date(new Date());
-		//	rejectdata.setError_Description(error);
-		
-			session.save(rejectdata);
-			
-			transaction.commit();
-			session.close();
-			
-		}
-		*/
 		
 		
 	}

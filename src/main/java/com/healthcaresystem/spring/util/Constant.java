@@ -18,4 +18,6 @@ public class Constant {
 	public static final String fetchingpremiummaster = "FROM PremiumMaster";
 	public static final String fetchingpremiumdata = "FROM PremiumProcess";
 	public static final String fetchingpremiumdetails = "FROM PremiumRejectData";
+	public static final String calculatingpremiumprocessor ="FROM PremiumMaster WHERE Member_Id = :memberid AND Premium_Start_Date = :premiumstartdate";
+	public static final String fetchingmemberid = "Select md.Policy_Status FROM memberdata md WHERE md.Member_Id = :memberid";
 }

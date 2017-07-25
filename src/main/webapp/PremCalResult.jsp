@@ -43,27 +43,27 @@
   	  	  .navbar li a, .navbar .navbar-brand {
       		 color: #d5d5d5 !important;
   			  } 
-  		   .navbar-nav li a:hover {
-      color: #fff !important;
-  }
-  .navbar-nav li.active a {
-      color: #fff !important;
-      background-color: #29292c !important;
-  }
+  		  .navbar-nav li a:hover {
+      		 color: #fff !important;
+  			  }
+  	      .navbar-nav li.active a {
+      		color: #fff !important;
+      		background-color: #29292c !important;
+  			  }
   		  .navbar-default .navbar-toggle {
-			  border-color: transparent;
+			border-color: transparent;
  			  }
  		  .open .dropdown-toggle {
-      color: #fff;
-      background-color: grey !important;
-  }
+      	    color: #fff;
+            background-color: grey !important;
+  	         }
          .dropdown-menu li a {
-      color: #000 !important;
-  }
-  .dropdown-menu li a:hover {
-      background-color: blue !important;
-  }
- 		  .jumbotron {
+      		color: #000 !important;
+  			}
+  		.dropdown-menu li a:hover {
+      		background-color: blue !important;
+  			}
+ 		.jumbotron {
  		      padding: 100px 25px;
  		      min-height : 620px;
  		      }	

@@ -10,8 +10,7 @@
       <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>  
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
       <style>
-      
-       .navbar  {
+      	.navbar  {
       		margin-bottom: 0;
       		background-color: #2d2d30;
       		z-index: 9999;
@@ -21,17 +20,17 @@
 		    letter-spacing: 0px;
 		    border-radius: 0;
   				}
-  	   .navbar-brand {
-  	  	color : #fff;
-  	  }
+  	    .navbar-brand {
+  	  		color : #fff;
+  	  			}
   		
  		.jumbotron{
- 		        padding: 100px 25px;
- 	             min-height : 620px;
+ 		    padding: 100px 25px;
+ 	        min-height : 620px;
  		        }	
- 		  #loginbox{
+ 		 #loginbox{
  		    padding-top: 100px;
- 		    }	 
+ 		    	}	 
       </style>
    </head>
    <body ng-app="postLogin" ng-controller="PostController as postCtrl" >
@@ -76,11 +75,6 @@
                       <input type="password" id="inputPassword" name="inputPassword" class="form-control" required ng-model="postCtrl.inputData.password"/>
                  </div>
                  <br>
-                <!--  <div class="alert alert-danger" class="text-center" ng-show="errorMsg" aria-hidden="true">
-                   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                     </button>
-                    <span class="glyphicon glyphicon-hand-right"></span>&nbsp;&nbsp;{{errorMsg}}
-                  </div> -->
                   <div class="form-group">
                     <div class="col-sm-12 controls">
                      <input type="submit" value="Log in"class="btn btn-primary pull-right" ng-disabled="login.$invalid"/>
