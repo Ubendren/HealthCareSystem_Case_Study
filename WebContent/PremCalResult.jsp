@@ -43,27 +43,27 @@
   	  	  .navbar li a, .navbar .navbar-brand {
       		 color: #d5d5d5 !important;
   			  } 
-  		   .navbar-nav li a:hover {
-      color: #fff !important;
-  }
-  .navbar-nav li.active a {
-      color: #fff !important;
-      background-color: #29292c !important;
-  }
+  		  .navbar-nav li a:hover {
+      		 color: #fff !important;
+  			  }
+  	      .navbar-nav li.active a {
+      		color: #fff !important;
+      		background-color: #29292c !important;
+  			  }
   		  .navbar-default .navbar-toggle {
-			  border-color: transparent;
+			border-color: transparent;
  			  }
  		  .open .dropdown-toggle {
-      color: #fff;
-      background-color: grey !important;
-  }
+      	    color: #fff;
+            background-color: grey !important;
+  	         }
          .dropdown-menu li a {
-      color: #000 !important;
-  }
-  .dropdown-menu li a:hover {
-      background-color: blue !important;
-  }
- 		  .jumbotron {
+      		color: #000 !important;
+  			}
+  		.dropdown-menu li a:hover {
+      		background-color: blue !important;
+  			}
+ 		.jumbotron {
  		      padding: 100px 25px;
  		      min-height : 620px;
  		      }	
@@ -113,19 +113,7 @@
 	</nav>
 	 <div class="jumbotron clearfix">
        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
-       <form action="processExcel" method="post"
-		enctype="multipart/form-data">
-		<div class="input-group">
-		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
-		
-		<input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
-      <br>
-      <input type="submit" class="btn btn-danger" value="Upload"/>
-      
      
-       </div>
-      </form>
       <div id="successMsg">
 		<%
 		String successMsg = (String) request.getAttribute("successMsg");

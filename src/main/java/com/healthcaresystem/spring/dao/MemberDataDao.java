@@ -96,6 +96,8 @@ public class MemberDataDao {
 		coverageamount = memberdata.getCoverage_Amount();
 		deductibleamount = memberdata.getDeductible_Amount();
 		count = 0;
+		//processedrecords = 0;
+		//failurerecords = 0;
 		
 		count = Validations(name,doorno,street,city,statecode,countrycode,zipcode,cellphoneno,dateofbirth,gender,
 				ssn,policyapplieddate,studentind,hazardousoccupation,heartdisease,aviationactivities,drinkingsmoking, 
@@ -358,6 +360,7 @@ public class MemberDataDao {
 			  logger.debug(s5.getApplicant_Full_Name());
            //   s5.setPolicy_No(memberdata.getPolicy_No());
 			  s5.setApplicant_Full_Name(memberdata.getApplicant_Full_Name());
+			  s5.setDate_of_Birth(memberdata.getDate_of_Birth());
 			  s5.setProcess_Date(new Date());
 			  s5.setDoor_No(memberdata.getDoor_No());
 			  s5.setCity(memberdata.getCity());

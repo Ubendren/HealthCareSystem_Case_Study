@@ -48,7 +48,7 @@ PremiumProcessorDao premiumprocessordao;
 					XSSFRow row = worksheet.getRow(i++);
 					logger.debug("row " + row);
 					// Sets the Read data to the model class
-					logger.debug("row.getCell(0).getNumericCellValue() " + row.getCell(0).getNumericCellValue());
+					//logger.debug("row.getCell(0).getNumericCellValue() " + row.getCell(0).getNumericCellValue());
 					premiumdata.setMember_Id((int)row.getCell(0).getNumericCellValue());
 					logger.debug("(row.getCell(1).getStringCellValue() " + row.getCell(1).getRawValue());
 					premiumdata.setPolicy_Number(row.getCell(1).getRawValue());

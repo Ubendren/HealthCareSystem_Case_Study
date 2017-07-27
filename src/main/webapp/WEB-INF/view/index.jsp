@@ -21,17 +21,24 @@
 		    letter-spacing: 0px;
 		    border-radius: 0;
   				}
-  	   .navbar-brand {
-  	  	color : #fff;
-  	  }
+  				
+  				
+  				 .navbar-brand{
+  	  				color : white;
+  	  				}
+  	  
   		
  		.jumbotron{
  		        padding: 100px 25px;
- 	             min-height : 620px;
- 		        }	
- 		  #loginbox{
- 		    padding-top: 100px;
- 		    }	 
+ 		        min-height : 620px;
+ 	
+ 		        }
+ 		        
+ 		        #loginbox{
+ 		        padding-top: 100px;
+ 		        }
+ 		       
+ 		       	 
       </style>
    </head>
    <body ng-app="postLogin" ng-controller="PostController as postCtrl" >
@@ -42,7 +49,7 @@
     	  </div>
   		</div>
 	  </nav>
-	  <div class="jumbotron clearfix" style="background-image:url('img\abc.jpg');">
+	  <div class="jumbotron" style="background-image:url('img\abc.jpg');">
         <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
           <div id="message">
 		  <%
@@ -65,7 +72,7 @@
               <div class="panel-title text-center">LOGIN HERE</div>
             </div>
             <div class="panel-body" >
-               <form name="login" action="login" class="form-horizontal" method="POST">
+               <form name="login" action="login" class="form-horizontal" method="GET">
                  <div class="input-group">
                    <span class="input-group-addon">Username <i class="glyphicon glyphicon-user"></i></span>
                      <input type="text" id="inputUsername" name="inputUsername" class="form-control" required autofocus ng-model="postCtrl.inputData.username"/>
@@ -74,6 +81,7 @@
                  <div class="input-group">
                    <span class="input-group-addon">Password   <i class="glyphicon glyphicon-lock"></i></span>
                       <input type="password" id="inputPassword" name="inputPassword" class="form-control" required ng-model="postCtrl.inputData.password"/>
+                
                  </div>
                  <br>
                 <!--  <div class="alert alert-danger" class="text-center" ng-show="errorMsg" aria-hidden="true">
@@ -91,9 +99,11 @@
             </div>
          </div>
       </div>
-       <nav class="navbar navbar-default navbar-fixed-bottom">
+      
+    <nav class="navbar navbar-default navbar-fixed-bottom">
  
 </nav>
+
     <script src="app1.js"></script>
    </body>
 </html>

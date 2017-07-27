@@ -157,6 +157,7 @@ public class CalculatePremiumDao {
 	public int AgeWeightage(int age){
 		int ageweightage = 0;
 		String agelimit = "";
+		System.out.println(age);
 		if(age>=1 && age<=25)
 			agelimit = "1 <= x <= 25";
 		else if(age>=26 && age>=35)

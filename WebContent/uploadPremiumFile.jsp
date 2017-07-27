@@ -98,8 +98,8 @@ function checkfile(sender) {
           <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="upload.jsp">Upload Enrollment File</a></li>
-            <li><a href="#">Calculate Premium</a></li> 
-            <li><a href="HealthCareSystem/uploadPremiumFile">Premium Processing</a></li>
+            <li><a href="calculatepremium">Calculate Premium</a></li> 
+            <li><a href="uploadPremiumFile.jsp">Premium Processing</a></li>
           </ul>
         </li>
         <li class="dropdown">

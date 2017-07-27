@@ -113,19 +113,7 @@
 	</nav>
 	 <div class="jumbotron clearfix">
        <div id="loginbox" class="mainbox col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3" >
-       <form action="processExcel" method="post"
-		enctype="multipart/form-data">
-		<div class="input-group">
-		<p style="color:#808080">BROWSE ENROLLMENT FILE:</p>
-		
-		<input type="file" onchange="checkfile(this);" 
-		class="filestyle" name="excelfile2007" data-buttonName="btn-primary">
-      <br>
-      <input type="submit" class="btn btn-danger" value="Upload"/>
-      
      
-       </div>
-      </form>
       <div id="successMsg">
 		<%
 		String successMsg = (String) request.getAttribute("successMsg");
