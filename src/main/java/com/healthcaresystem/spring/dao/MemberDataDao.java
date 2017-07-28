@@ -602,20 +602,24 @@ public class MemberDataDao {
 		UpdateMasterMemberData(filename,totalrecords,processedrecords,failurerecords);
 	}
 	
-	public void UpdateMasterMemberData(String filename, int totalrecords, int processedrecords, int failurerecords){
+	public void UpdateMasterMemberData(String filename, int totalrecords, int processedrecord, int failurerecord){
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		org.hibernate.Transaction transaction = session.beginTransaction();
 		
 		mastermember.setFile_Name(filename);
-		mastermember.setProcessed_Records(processedrecords);
+		mastermember.setProcessed_Records(processedrecord);
 		mastermember.setTotal_Records(totalrecords);
-		mastermember.setFailed_Records(failurerecords);
+		mastermember.setFailed_Records(failurerecord);
 		mastermember.setDate_Time(new Date());
 		session.save(mastermember);
 		
 		transaction.commit();
 		session.close();
+		
+		processedrecords = 0;
+		failurerecords = 0;
+		
 		
 	}
 	

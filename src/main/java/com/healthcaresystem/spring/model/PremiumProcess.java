@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="premiumprocess")
+@Table(name="premiumenrolledmemberdata")
 public class PremiumProcess {
 	
 	@Id

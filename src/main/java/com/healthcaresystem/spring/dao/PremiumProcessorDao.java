@@ -243,10 +243,10 @@ package com.healthcaresystem.spring.dao;
 		         i++;
 		      }
 		      FileOutputStream out = new FileOutputStream(
-		      new File("D:/Enrollment Process output folder/premiummemberdata.xlsx"));
+		      new File("D:/Enrollment Process output folder/premiumenrolledmemberdata.xlsx"));
 		      workbook.write(out);
 		      out.close();
-		      logger.info("premiummemberdata.xlsx written successfully");
+		      logger.info("premiumenrolledmemberdata.xlsx written successfully");
 			}
 			return premiumdatalist.size();
 			
